@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablas</title>
+</head>
+
+<body>
+
+    <h2>Tabla básica hola</h2>
+
+    <table border>
+        <tr>
+            <th>fila 1, celda 1</th>
+            <th>fila 1, celda 2</th>
+            <th>fila 1, celda 3</th>
+        </tr>
+        <tr>
+            <td>fila 2, celda 1</td>
+            <td>fila 2, celda 2</td>
+            <td>fila 2, celda 3</td>
+        </tr>
+        <tr>
+            <td>fila 3, celda 1</td>
+            <td>fila 3, celda 2</td>
+            <td>fila 3, celda 3</td>
+        </tr>
+    </table>
+
+    <h3>Tabla avanzada y semántica</h3>
+
+    <table border>
+        <thead>
+            <tr>
+                <th>fila 1, celda 1</th>
+                <th>fila 1, celda 2</th>
+                <th>fila 1, celda 3</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>fila 2, celda 1</td>
+                <td>fila 2, celda 2</td>
+                <td>fila 2, celda 3</td>
+            </tr>
+            <tr>
+                <td>fila 3, celda 1</td>
+                <td>fila 3, celda 2</td>
+                <td>fila 3, celda 3</td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td>fila 4, celda 1</td>
+                <td>fila 4, celda 2</td>
+                <td>fila 4, celda 3</td>
+                <!-- <td rowspan="4">fila 5, celda 3</td> -->
+            </tr>
+            <tr>
+                <td colspan="2">TOTAL</td>
+                <td>S/ 999.55</td>
+            </tr>
+            <tr>
+                <td colspan="2">Fila a, Celda 1</td>
+                <td rowspan="2">Fila b, Celda 2</td>
+            </tr>
+            <tr>
+                <td colspan="2">Fila c, Celda 3</td>
+            </tr>
+        </tfoot>
+    </table>
+
+</body>
+
+</html>
