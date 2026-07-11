@@ -1,100 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEORIA CSS</title>
+    <title>Teoría CSS</title>
     <style>
+        /* Pseudo clases */
 
         button {
             background-color: red;
         }
-        button:hover { /* Pseudo-clase */
+
+        button:hover {
             background-color: blue;
-            font-size: 20px;
+            font-size: 18px;
         }
+
+        /* Pseudo elementos */
+
+        /* Permiten crear partes virtuales de un elemento(etiqueta) */
 
         p {
-            color: red;
-        }
-        p::before {
-            content: '🎁 Jeyson';
-            color: Green;
-        }
-        p::after {
-            content: '❤ Jeyson';
-            font-size: 50px;
+            color: blue;
         }
 
-        /*selectores combinados*/
+        p::before {
+            content: '🧠 X';
+            color: green;
+        }
+
+        p::after {
+            content: '👾';
+            font-size: 28px;
+        }
+
+        /* SELECTORES COMBINADOS */
+
+        /* Selectores descendientes */
 
         article {
             background-color: aquamarine;
         }
-        article h2 {
+
+        h2 {
             color: red;
-            font-size: 30px;
-
         }
+
+        article h2 {
+            color: orange;
+        }
+
         article strong {
-            color: blueviolet;
-            font-size: 20px;
+            color: chocolate;
         }
 
-        /*selectores de multiples selectores*/
+        /* Selector de múltiples selectores */
 
-        h1, h3, em{
-            border: 5px solid red;
+        h1,
+        h3,
+        em {
+            border: 5px solid salmon;
         }
 
-        body{
+        /* Herencia */
+
+        /* Algunos estilos se heredan automáticamente y otros no lo hacen */
+
+        body {
+            color: orange;
+        }
+
+        button {
+            /* color: white; */
+            color: inherit;
+        }
+
+        a {
+            /* color: green; */
+            color: inherit;
+        }
+
+        /* Cascada */
+
+        /* Decide qué estilo gana cuando hay conflictos. Depende del orden, especificidad y herencia */
+
+        header {
+            color: violet;
+        }
+
+        #cabecera {
             color: blue;
         }
-        
-        button{
-            /*color:white;*/
-            color: inherit;
 
-        }
-        a{
-            color: inherit;
+        .texto {
+            color: red;
         }
 
-        /*cascada*/
-        
+        /* Unidades de medida */
 
+        /* 
+      Absolutas: px, cm, in
 
+      Relativas: em, rem, %, vw, vh (+ modernas y flexibles)
+    */
 
+        /* Colores */
 
+        h2 {
+            color: fuchsia;
+            color: #ff00ff;
+            /* 3 números hexadecimales (red, green, blue) */
+            color: hsl(99, 92%, 37%);
+            /* Crea un color a partir de valores de matiz(Hue), saturación(Saturation) y claridad(lightness). */
+            color: hsl(99, 92%, 37%, 0.5);
+            /* Con trasnparencia */
+
+            color: rgb(0, 0, 255);
+            /* 2 números decimales van entre 0 y 255 (rojo, verde, azúl) */
+            color: rgb(0, 0, 255, 0.5);
+            /* Con trasnparencia */
+        }
     </style>
 </head>
-<body>
-    <button>
-        Clique aqui para acessar a teoria CSS
-    </button>
 
-    <p>Texto Especial</p>
+<body>
+    <button>Click aquí!</button>
+
+    <p>Texto especial</p>
 
     <article>
-        <h2>Bienvenidos</h2>
+        <h2>Bienvenido</h2>
+
         <strong>Hola a todos</strong>
     </article>
 
     <section>
-        <h1>Titulo</h1>
-        <h2>Subtitulo</h2>
-        <h3>Subtitulo 3</h3>
+        <h1>Título</h1>
+        <h2>Subtítulo</h2>
+        <h3>Otro subtítulo</h3>
 
-        <strong>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum labore maiores ipsum laboriosam voluptate cumque quasi explicabo deserunt nihil aut nobis quod, magnam iste incidunt optio neque vel aliquam nam!</strong>
+        <strong>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo animi dolorum eum explicabo ea
+            repellendus quasi error esse quibusdam nulla! Labore accusamus voluptatem consequuntur tempora ea architecto
+            quam numquam assumenda.</strong>
 
         <em>texto con enfasis</em>
 
         <a href="">Soy un link</a>
     </section>
 
-    <header>
-        De que color soy?
+    <header id="cabecera" class="texto">
+        ¿De que color soy?
     </header>
-
 </body>
+
 </html>
