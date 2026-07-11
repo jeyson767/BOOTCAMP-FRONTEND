@@ -1,0 +1,39 @@
+/* 
+  font-family: "Montserrat", sans-serif;
+  font-family: "Fraunces", serif;
+*/
+
+body {
+    background-color: hsl(30, 38%, 92%);
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+
+    display: flex;
+    justify-content: center;
+        /*alineamiento horizontal*/
+    align-items: center;
+        /*alinemaiento vertical*/
+    height: 100vh;
+}
+
+main {
+    border: 1px solid red;
+
+    width: 650px; /*total del contenedor*/
+
+    min-height: 400px;
+    
+    display: flex;
+}
+
+.foto {
+    width: 350px; /*contenedor de la imagen*/
+    background-image: url(images/image-product-desktop.jpg);
+    background-size: cover;
+}
+
+.contenido {
+    width: 300px; /*contenedor del contenido*/
+}
+
