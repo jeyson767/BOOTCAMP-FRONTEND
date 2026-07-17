@@ -11,29 +11,109 @@ body {
 
     display: flex;
     justify-content: center;
-        /*alineamiento horizontal*/
+    /*alineamiento horizontal*/
     align-items: center;
-        /*alinemaiento vertical*/
+    /*alinemaiento vertical*/
     height: 100vh;
 }
 
 main {
-    border: 1px solid red;
-
-    width: 650px; /*total del contenedor*/
+    border-radius: 14px;
+    overflow: hidden;
+    width: 650px;
+    /*total del contenedor*/
 
     min-height: 400px;
-    
+    /* CRECE AUTOMATICO*/
+
     display: flex;
 }
 
 .foto {
-    width: 350px; /*contenedor de la imagen*/
+    width: 350px;
+    /*contenedor de la imagen*/
     background-image: url(images/image-product-desktop.jpg);
     background-size: cover;
 }
 
 .contenido {
-    width: 300px; /*contenedor del contenido*/
+    width: 300px;
+    /*contenedor del contenido*/
+    width: 300px;
+    padding: 28px;
+    background-color: hsl(0, 0%, 100%);
 }
 
+.contenido h2 {
+    margin: 0;
+
+    color: hsl(228, 12%, 48%);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+}
+
+.contenido h1 {
+    /* Aplicamos la fuente Fraunces */
+    font-family: "Fraunces", serif;
+    /* Color azul muy oscuro / casi negro característico del diseño */
+    color: hsl(212, 21%, 14%);
+    /* Tamaño de letra destacado */
+    font-size: 40px;
+    /* Peso de fuente negrita (bold) */
+    font-weight: 700;
+    /* Ajustamos el espacio entre líneas para que se vea compacto como en la imagen */
+    line-height: 1;
+    /* Espaciado exterior para separarlo del subtítulo y del párrafo */
+    margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+.contenido p {
+    /* Aplicamos la fuente Montserrat */
+    font-family: "Montserrat", sans-serif;
+    /* Color gris azulado para darle un tono suave */
+    color: hsl(228, 12%, 48%);
+    /* Tamaño de letra adecuado para lectura */
+    font-size: 14px;
+    /* Peso de fuente normal (regular) */
+    font-weight: 500;
+    /* Altura de línea para que el texto respire y sea legible */
+    line-height: 1.6;
+    /* Espaciado inferior para separarlo de la sección de precios */
+    margin-bottom: 24px;
+}
+
+.contenido div {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.contenido span {
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    font-size: 40px;
+    color: hsl(158, 36%, 37%);   
+}
+
+.contenido s {
+    color: hsl(228, 12%, 48%); 
+}
+
+.contenido button {
+    border: none;
+    background-color: hsl(158, 36%, 37%);
+    color:white;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    padding: 14px;
+    width: 100%;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+
+    margin-top: 21px;
+}
