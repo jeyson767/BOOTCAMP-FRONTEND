@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS: Posicionamiento</title>
+    <style>
+        .relative {
+            background-color: lightblue;
+            position: relative;
+            top: 100px;
+            left: 100px;
+            right: 100px;
+            /* bottom: 100px; */
+            inset: 10px;
+            /* Ayuda al contendedor y aplica a los cuatro valores en un solo*/
+        }
+
+        .absolute {
+            background-color: lightsalmon;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+
+            width: 80px;
+            height: 80px;
+            border-radius: 100px;
+        }
+
+        .pruebarelativepadre {
+            border: 1px solid red;
+        }
+
+        .pruebaconrelative {
+            background-color: aqua;
+            position: relative;
+            top: -10px;
+            left: 10px;
+        }
+
+        .fixed {
+            position: fixed;
+
+            background-color: lightgreen;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            z-index: 3;
+        }
+
+        .ejemplo-relative {
+            position: relative;
+            background-color: lightgreen;
+
+            padding: 10px;
+
+            width: 200px;
+            height: 300px;
+        }
+
+        .ejemplo-absolute {
+            position: absolute;
+            top: 40px;
+            left: 50px;
+
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="relative">Contenido relativo a mi posición</div>
+    <div class="absolute">Me posiciono encima</div>
+    <div class="fixed">Siempre visible</div>
+
+    <div class="pruebarelativepadre">
+        <div class="pruebaconrelative">pruebaconrelative</div>
+    </div>
+
+    <div class="ejemplo-relative">
+        <div class="ejemplo-absolute">
+            Texto que se posiciona donde quiera dentro de .ejemplo-relative
+        </div>
+    </div>
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas saepe eos quidem aut impedit adipisci reprehenderit
+        fugit cum tenetur laudantium sequi quia deleniti expedita officiis, in tempore ipsa porro nisi!</p>
+</body>
+
+</html>
