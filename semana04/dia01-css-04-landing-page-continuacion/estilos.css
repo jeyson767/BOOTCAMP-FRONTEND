@@ -1,0 +1,203 @@
+/*font-family: "Raleway", sans-serif;
+font-family: "Open Sans", sans-serif;*/
+
+/*GENERALES*/
+
+/*SELECTOR UNIVERSAL*/
+* {
+    /*border: 1px solid red;*/
+    box-sizing: border-box; /*PARA QUE SE ENCARGUE AUTOMATICAMENTE PARA QUE TODO ENCAJE*/
+    margin: 0;
+}
+
+html {
+    font-size: 14px;
+}
+
+body{
+    background-color: hsl(217, 28%, 15%);
+
+    color: hsl(0, 0%, 100%);
+    font-family: "Open Sans", sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    /*TODO: RWD (RESPONSIVE WEB DESING) para las imagenes*/
+    max-width: 100%; /*LA IMAGEN NUNCA SERA MAS GRANDE QUE SU CONTENEDOR*/
+    height: auto;
+}
+
+/*UTILITARIOS*/
+
+.hidden {
+ display: none;
+}
+
+.wrapper {
+    width: min(100% - 3rem, 1440px);
+    margin: 0 auto;
+}
+
+/*HEADER*/
+
+.header {
+    /*border: 1px solid red;*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-top: 42px;
+    background-color: hsl(217, 28%, 15%);
+}
+
+.header__logo{
+    width: 148px;
+}
+
+.header__nav{
+
+    display: flex;
+    gap: 3rem; /*multiplo de 14*/
+}
+
+/*HERO*/
+
+/*REM: Root EM (Ancho de la letra M)*/
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem; /*separacion entre lineas 2rem <> 28px <> 14px * 2 */
+    padding-top: 3rem;
+    padding-bottom: 12rem; /*168px*/
+
+    background-image: url(images/bg-curvy-desktop.svg);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: contain;
+}
+
+.hero__title{
+    /*min: elije el valor mas pequeñp entre los que les pasemos*/
+    width: min(100% - 3rem, 720px);
+    font-family: "Raleway", sans-serif;
+    
+    font-size: 2.5rem;
+    text-align: center;
+
+}
+
+.hero__text{
+    width: min(100% - 3rem, 455px);
+    text-align: center;
+}
+
+.hero__button{
+    border: none;
+
+    background-color: hsl(176, 68%, 64%);
+    border-radius: 7rem;
+    padding: 1rem;
+    min-width: 260px;
+    color: white;
+}
+
+.features{
+    
+
+    display: grid;
+    grid-template-columns: 340px;
+    grid-template-rows: 240px 240px;
+    justify-content: center;
+    gap: 5rem;
+}
+
+@media (min-width: 992px) {
+    .features{
+        grid-template-columns: 340px 340px;
+    }
+}
+
+.feature {
+    
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.feature__title{
+    text-align: center;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.feature__text {
+    text-align: center;
+    line-height: 22.4px;
+}
+
+.testimonials{
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+}
+
+.testimonial--wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    background-image: url(images/bg-quotes.png);
+    background-repeat: no-repeat;
+    background-position: 100px - 10px;
+}
+@media (min-width: 992px) {
+    .testimonials--wrapper {
+            flex-direction: row;
+    }
+}
+
+.testimonial {
+    
+
+    width: 23rem;
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    border-radius: 0.5rem;
+    background-color: hsl(219, 30%, 18%);
+}
+
+.testimonial__text{
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+}
+
+.testimonial__profile{
+    
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.testimonial__info h4{
+    font-weight: 700;
+}
+
+.testimonial__info h5{
+    font-weight: 400;
+}
+
+.testimonial__avatar{
+    border-radius: 2rem;
+}
