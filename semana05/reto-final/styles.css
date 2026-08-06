@@ -411,7 +411,7 @@ ul {
 }
 
 /* ==========================================================================
-   MEDIA QUERIES (ADAPTACIÓN PARA DISPOSITIVOS MÓVILES)
+   MEDIA QUERIES (ADAPTACIÓN PARA DISPOSITIVOS MÓVILES DISTINTAS MEDIDAS)
    ========================================================================== */
 @media (max-width: 1023px) {
     .header__cta {
