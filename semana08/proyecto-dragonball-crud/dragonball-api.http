@@ -1,0 +1,53 @@
+### Dragon Ball Characters API - APIBox Testing
+### Endpoint Base
+@baseUrl = https://apibox.vercel.app/2aSCD2Sbz4kg4AcacfeJLMmalhKR3Xgs/api/personajes
+
+### 1. Listar todos los personajes (GET)
+GET {{baseUrl}}
+Content-Type: application/json
+
+### 2. Crear un nuevo personaje (POST)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "Goku",
+  "image": "https://dragonball-api.com/characters/goku_normal.webp",
+  "race": "Saiyan"
+}
+
+### 3. Crear Vegeta (POST)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "Vegeta",
+  "image": "https://dragonball-api.com/characters/vegeta_normal.webp",
+  "race": "Saiyan"
+}
+
+### 4. Crear Piccolo (POST)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "Piccolo",
+  "image": "https://dragonball-api.com/characters/picolo_normal.webp",
+  "race": "Namekian"
+}
+
+### 5. Actualizar un personaje (PUT)
+### Reemplazar {{id}} con el ID obtenido en el GET
+@id = 1
+PUT {{baseUrl}}/{{id}}
+Content-Type: application/json
+
+{
+  "name": "Son Goku Super Saiyan",
+  "image": "https://dragonball-api.com/characters/goku_normal.webp",
+  "race": "Saiyan"
+}
+
+### 6. Eliminar un personaje (DELETE)
+DELETE {{baseUrl}}/{{id}}
+Content-Type: application/json

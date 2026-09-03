@@ -1,0 +1,305 @@
+/* ====================================================
+   Dragon Ball CRUD - Light Theme Styles (Maratón G31)
+   ==================================================== */
+
+:root {
+  --color-orange: #f95700;
+  --color-orange-hover: #e04c00;
+  --color-blue: #2563eb;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #fafbfc;
+}
+
+/* ----------------------------------------------------
+   Tarjetas de Personajes (Horizontal Card Style)
+   ---------------------------------------------------- */
+.card-personaje {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.card-personaje:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.avatar-personaje {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  background-color: #f1f5f9;
+  object-fit: cover;
+  object-position: top center;
+  flex-shrink: 0;
+  padding: 0.125rem;
+}
+
+@media (min-width: 640px) {
+  .avatar-personaje {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+/* ----------------------------------------------------
+   Badges: Razas y Géneros
+   ---------------------------------------------------- */
+.badge-raza,
+.badge-genero {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  line-height: 1.25;
+}
+
+/* Razas */
+.badge-raza.Saiyan {
+  background-color: #eff6ff;
+  color: #2563eb;
+  border-color: #dbeafe;
+}
+
+.badge-raza.Namekian {
+  background-color: #f5f3ff;
+  color: #7c3aed;
+  border-color: #ede9fe;
+}
+
+.badge-raza.Human {
+  background-color: #fffbeb;
+  color: #d97706;
+  border-color: #fef3c7;
+}
+
+.badge-raza.Android {
+  background-color: #fdf2f8;
+  color: #db2777;
+  border-color: #fce7f3;
+}
+
+.badge-raza.FriezaRace,
+.badge-raza.Frieza-Race,
+.badge-raza.Frieza {
+  background-color: #fff1f2;
+  color: #e11d48;
+  border-color: #ffe4e6;
+}
+
+.badge-raza.Majin {
+  background-color: #fdf4ff;
+  color: #c026d3;
+  border-color: #fae8ff;
+}
+
+.badge-raza.God,
+.badge-raza.Angel {
+  background-color: #faf5ff;
+  color: #9333ea;
+  border-color: #f3e8ff;
+}
+
+.badge-raza.default {
+  background-color: #f8fafc;
+  color: #64748b;
+  border-color: #e2e8f0;
+}
+
+/* Géneros */
+.badge-genero.Male {
+  background-color: #ecfdf5;
+  color: #059669;
+  border-color: #d1fae5;
+}
+
+.badge-genero.Female {
+  background-color: #fdf2f8;
+  color: #db2777;
+  border-color: #fce7f3;
+}
+
+.badge-genero.Other {
+  background-color: #f8fafc;
+  color: #64748b;
+  border-color: #e2e8f0;
+}
+
+/* ----------------------------------------------------
+   Botones de Acción (Editar y Eliminar)
+   ---------------------------------------------------- */
+.btn-accion-editar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+  background-color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-accion-editar:hover {
+  background-color: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.btn-accion-eliminar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #fecaca;
+  color: #ef4444;
+  background-color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-accion-eliminar:hover {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+/* ----------------------------------------------------
+   Botones de Paginación
+   ---------------------------------------------------- */
+.btn-pag-num {
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  color: #4b5563;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-pag-num:hover:not(.active) {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+  color: #111827;
+}
+
+.btn-pag-num.active {
+  background-color: #f95700;
+  border-color: #f95700;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 1px 2px 0 rgba(249, 87, 0, 0.3);
+}
+
+.btn-pag-dots {
+  padding: 0 0.25rem;
+  color: #9ca3af;
+  font-size: 0.75rem;
+}
+
+/* ----------------------------------------------------
+   Notificaciones Toast
+   ---------------------------------------------------- */
+.toast-msg {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.15rem;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.875rem;
+  color: #1e293b;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  pointer-events: auto;
+  animation: toastIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: all 0.2s ease;
+}
+
+.toast-msg.toast-success {
+  border-left: 4px solid #10b981;
+}
+.toast-msg.toast-success i {
+  color: #10b981;
+}
+
+.toast-msg.toast-error {
+  border-left: 4px solid #ef4444;
+}
+.toast-msg.toast-error i {
+  color: #ef4444;
+}
+
+.toast-msg.toast-info {
+  border-left: 4px solid #f95700;
+}
+.toast-msg.toast-info i {
+  color: #f95700;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+}
+
+/* Rotación de icono de recarga */
+.rotate-anim {
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Modal Open Transition */
+.modal-visible {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}

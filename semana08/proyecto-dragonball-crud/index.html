@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dragon Ball CRUD | Maratón G31</title>
+  <meta name="description" content="CRUD de personajes de Dragon Ball en tema claro con HTML, CSS, JavaScript y APIBox.">
+  
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            brand: {
+              orange: '#f95700',
+              orangeDark: '#e04c00',
+              orangeLight: '#ffedd5',
+              blue: '#2563eb'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="bg-[#fcfcfd] text-neutral-800 min-h-screen font-sans flex flex-col justify-between selection:bg-orange-500 selection:text-white">
+
+  <!-- Contenedor Principal -->
+  <main class="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 flex-1 space-y-8">
+    
+    <!-- Encabezado -->
+    <header class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-2 border-b border-neutral-100">
+      <div>
+        <p class="font-mono text-xs text-neutral-400 font-medium tracking-widest uppercase mb-1">
+          MARATÓN G31 — 2026
+        </p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight flex items-center gap-2">
+          Dragon Ball CRUD
+        </h1>
+        <p class="text-sm text-neutral-500 mt-1 flex items-center gap-1.5">
+          Gestiona tus personajes de Dragon Ball <span class="text-base">🟠</span>
+        </p>
+      </div>
+
+      <!-- Contador Superior Derecho & Botón Config API -->
+      <div class="flex items-center gap-6 self-start sm:self-auto">
+        <!-- Botón Config API -->
+        <button id="btnConfigApi" title="Configurar Endpoint de APIBox" class="text-xs font-medium text-neutral-500 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200/80 px-3 py-2 rounded-xl transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-gear text-neutral-500"></i>
+          <span>API Endpoint</span>
+        </button>
+
+        <!-- Botón Recargar -->
+        <button id="btnRecargar" title="Recargar lista" class="text-xs font-medium text-neutral-500 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200/80 px-3 py-2 rounded-xl transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-arrows-rotate text-neutral-500" id="iconRecargar"></i>
+          <span class="hidden sm:inline">Recargar</span>
+        </button>
+
+        <div class="text-right shrink-0 border-l border-neutral-200 pl-6">
+          <p id="contadorPersonajes" class="text-4xl font-extrabold text-neutral-900 leading-none">0</p>
+          <p class="font-mono text-[11px] text-neutral-400 uppercase tracking-widest mt-1">PERSONAJES</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Grid Principal (2 Columnas: Formulario a la izquierda, Lista a la derecha) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- ============================================== -->
+      <!-- COLUMNA IZQUIERDA: Formulario + Estructura JSON -->
+      <!-- ============================================== -->
+      <aside class="lg:col-span-5 space-y-6">
+        
+        <!-- Tarjeta de Formulario -->
+        <div class="bg-white border border-neutral-200/90 rounded-2xl p-6 sm:p-7 shadow-[0_2px_12px_rgba(0,0,0,0.03)] space-y-5">
+          
+          <!-- Título del Formulario -->
+          <div class="flex items-center justify-between">
+            <h2 class="font-mono text-xs font-bold uppercase tracking-wider text-brand-orange flex items-center gap-2">
+              <i class="fa-regular fa-user text-sm" id="iconForm"></i>
+              <span id="tituloForm">NUEVO PERSONAJE</span>
+            </h2>
+            <span id="badgeModoEdicion" class="hidden px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded bg-amber-100 text-amber-800">
+              Modo Edición
+            </span>
+          </div>
+
+          <!-- Sugerencia rápida desde Dragon Ball API -->
+          <div class="p-2.5 bg-orange-50/60 border border-orange-100 rounded-xl space-y-1">
+            <label for="selectSugerencia" class="block text-[11px] font-semibold text-orange-800">
+              ⚡ Autocompletar con personaje oficial:
+            </label>
+            <select id="selectSugerencia" class="w-full text-xs bg-white border border-orange-200 rounded-lg py-1.5 px-2.5 text-neutral-700 outline-none focus:border-brand-orange cursor-pointer">
+              <option value="">-- Elige un personaje para autocompletar --</option>
+              <option value="Goku">Goku (Saiyan - Male)</option>
+              <option value="Vegeta">Vegeta (Saiyan - Male)</option>
+              <option value="Piccolo">Piccolo (Namekian - Male)</option>
+              <option value="Bulma">Bulma (Human - Female)</option>
+              <option value="Gohan">Gohan (Saiyan - Male)</option>
+              <option value="Trunks">Trunks (Saiyan - Male)</option>
+              <option value="Krillin">Krillin (Human - Male)</option>
+              <option value="Freezer">Freezer (Frieza Race - Male)</option>
+              <option value="Cell">Cell (Android - Male)</option>
+              <option value="Majin Buu">Majin Buu (Majin - Male)</option>
+              <option value="Android 18">Androide 18 (Android - Female)</option>
+              <option value="Videl">Videl (Human - Female)</option>
+            </select>
+          </div>
+
+          <!-- Formulario Principal -->
+          <form id="formPersonaje" class="space-y-4" novalidate>
+            <input type="hidden" id="inputId">
+
+            <!-- Campo: Nombre -->
+            <div>
+              <label for="inputNombre" class="block text-xs font-bold text-neutral-700 mb-1.5">
+                Nombre
+              </label>
+              <input 
+                type="text" 
+                id="inputNombre" 
+                required 
+                placeholder="Ej: Goku"
+                class="w-full px-3.5 py-2.5 bg-white border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 outline-none focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 transition-all"
+              >
+              <p id="errorNombre" class="text-[11px] text-red-500 mt-1 hidden">El nombre es obligatorio.</p>
+            </div>
+
+            <!-- Campo: Imagen (URL) -->
+            <div>
+              <label for="inputImagen" class="block text-xs font-bold text-neutral-700 mb-1.5">
+                Imagen (URL)
+              </label>
+              <input 
+                type="url" 
+                id="inputImagen" 
+                required 
+                placeholder="https://dragonball-api.com/..."
+                class="w-full px-3.5 py-2.5 bg-white border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 outline-none focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 transition-all font-mono text-xs"
+              >
+              <p id="errorImagen" class="text-[11px] text-red-500 mt-1 hidden">Ingresa una URL válida de imagen.</p>
+            </div>
+
+            <!-- Previsualización de Imagen Miniatura -->
+            <div id="previewContainer" class="flex items-center gap-3 p-2 bg-neutral-50 border border-neutral-200/80 rounded-xl">
+              <img id="imgPreview" src="https://dragonball-api.com/characters/goku_normal.webp" alt="Preview" class="w-12 h-12 object-contain bg-white rounded-lg border border-neutral-200 shrink-0" onerror="this.src='https://placehold.co/100x100/f8fafc/ea580c?text=DBZ'">
+              <div class="text-[11px] text-neutral-500 leading-tight">
+                <span class="font-semibold text-neutral-700">Vista previa de imagen</span>
+                <p class="text-[10px] text-neutral-400">Se actualiza automáticamente al ingresar la URL</p>
+              </div>
+            </div>
+
+            <!-- Campo: Raza -->
+            <div>
+              <label for="inputRaza" class="block text-xs font-bold text-neutral-700 mb-1.5">
+                Raza
+              </label>
+              <input 
+                type="text" 
+                id="inputRaza" 
+                required 
+                placeholder="Ej: Saiyan"
+                class="w-full px-3.5 py-2.5 bg-white border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 outline-none focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 transition-all"
+              >
+              <p id="errorRaza" class="text-[11px] text-red-500 mt-1 hidden">La raza es obligatoria.</p>
+            </div>
+
+            <!-- Campo: Género -->
+            <div>
+              <label for="selectGenero" class="block text-xs font-bold text-neutral-700 mb-1.5">
+                Género
+              </label>
+              <div class="relative">
+                <select 
+                  id="selectGenero" 
+                  class="w-full appearance-none px-3.5 py-2.5 bg-white border border-neutral-200 rounded-xl text-sm text-neutral-900 outline-none focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 transition-all cursor-pointer"
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other / Unknown</option>
+                </select>
+                <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-neutral-400 pointer-events-none"></i>
+              </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="pt-2 space-y-2">
+              <button 
+                type="submit" 
+                id="btnSubmit" 
+                class="w-full bg-[#f95700] hover:bg-[#e04c00] text-white font-bold text-sm py-3 px-4 rounded-xl shadow-sm hover:shadow transition-all active:scale-[0.99] flex items-center justify-center gap-2"
+              >
+                <i class="fa-solid fa-plus font-bold" id="btnSubmitIcon"></i>
+                <span id="btnSubmitTexto">Agregar Personaje</span>
+              </button>
+
+              <button 
+                type="button" 
+                id="btnCancelarEdicion" 
+                class="hidden w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 font-semibold text-xs py-2.5 px-4 rounded-xl transition-all"
+              >
+                Cancelar edición
+              </button>
+            </div>
+          </form>
+
+        </div>
+
+        <!-- Tarjeta: Estructura del JSON -->
+        <div class="bg-white border border-neutral-200/90 rounded-2xl p-5 shadow-[0_2px_12px_rgba(0,0,0,0.03)] space-y-3">
+          <div class="flex items-center gap-2 text-brand-orange font-bold text-xs">
+            <i class="fa-regular fa-lightbulb text-sm"></i>
+            <span>Estructura del JSON</span>
+          </div>
+
+          <div class="bg-neutral-50 border border-neutral-200/80 rounded-xl p-3.5 font-mono text-xs text-neutral-700 overflow-x-auto leading-relaxed">
+            <pre class="m-0"><code>{
+  "name": "Goku",
+  "image": "https://...jpg",
+  "race": "Saiyan",
+  "gender": "Male"
+}</code></pre>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- ============================================== -->
+      <!-- COLUMNA DERECHA: Lista de Personajes y Paginación -->
+      <!-- ============================================== -->
+      <section class="lg:col-span-7 space-y-5">
+        
+        <!-- Encabezado de la Lista -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-neutral-200">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-widest text-[#2563eb] flex items-center gap-2">
+            LISTA DE PERSONAJES
+          </h2>
+
+          <!-- Buscador y Filtro Rápido -->
+          <div class="flex items-center gap-2">
+            <div class="relative flex-1 sm:w-60">
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 text-xs"></i>
+              <input 
+                type="text" 
+                id="inputBuscar" 
+                placeholder="Buscar personaje..." 
+                class="w-full pl-8 pr-3 py-1.5 bg-white border border-neutral-200 rounded-lg text-xs text-neutral-800 placeholder-neutral-400 outline-none focus:border-blue-500 transition-colors"
+              >
+            </div>
+            
+            <select id="filtroRaza" class="text-xs bg-white border border-neutral-200 rounded-lg py-1.5 px-2 text-neutral-700 outline-none focus:border-blue-500 cursor-pointer">
+              <option value="todos">Todas las razas</option>
+              <option value="Saiyan">Saiyan</option>
+              <option value="Namekian">Namekian</option>
+              <option value="Human">Human</option>
+              <option value="Android">Android</option>
+              <option value="Frieza Race">Frieza Race</option>
+              <option value="Majin">Majin</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Estado de Carga (Loading Spinner / Skeletons) -->
+        <div id="loading" class="space-y-3">
+          <div class="bg-white border border-neutral-200 rounded-2xl p-4 flex items-center justify-between gap-4 animate-pulse">
+            <div class="flex items-center gap-4 flex-1">
+              <div class="w-16 h-16 sm:w-20 sm:h-20 bg-neutral-100 rounded-xl shrink-0"></div>
+              <div class="space-y-2 flex-1">
+                <div class="h-4 bg-neutral-100 rounded w-1/3"></div>
+                <div class="flex gap-2">
+                  <div class="h-5 bg-neutral-100 rounded w-16"></div>
+                  <div class="h-5 bg-neutral-100 rounded w-14"></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <div class="h-8 bg-neutral-100 rounded-lg w-16"></div>
+              <div class="h-8 bg-neutral-100 rounded-lg w-16"></div>
+            </div>
+          </div>
+          <div class="bg-white border border-neutral-200 rounded-2xl p-4 flex items-center justify-between gap-4 animate-pulse">
+            <div class="flex items-center gap-4 flex-1">
+              <div class="w-16 h-16 sm:w-20 sm:h-20 bg-neutral-100 rounded-xl shrink-0"></div>
+              <div class="space-y-2 flex-1">
+                <div class="h-4 bg-neutral-100 rounded w-1/3"></div>
+                <div class="flex gap-2">
+                  <div class="h-5 bg-neutral-100 rounded w-16"></div>
+                  <div class="h-5 bg-neutral-100 rounded w-14"></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <div class="h-8 bg-neutral-100 rounded-lg w-16"></div>
+              <div class="h-8 bg-neutral-100 rounded-lg w-16"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lista de Personajes (Cards Horizontales) -->
+        <div id="listaPersonajes" class="hidden space-y-3">
+          <!-- Tarjetas renderizadas dinámicamente con JavaScript -->
+        </div>
+
+        <!-- Estado Vacío -->
+        <div id="estadoVacio" class="hidden text-center py-14 px-4 bg-white border border-dashed border-neutral-200 rounded-2xl space-y-3">
+          <div class="w-12 h-12 mx-auto rounded-full bg-orange-50 text-brand-orange flex items-center justify-center text-xl">
+            <i class="fa-solid fa-dragon"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-neutral-800">No hay personajes</h3>
+            <p class="text-xs text-neutral-400 mt-0.5">Agrega tu primer guerrero o importa datos oficiales.</p>
+          </div>
+          <button id="btnPoblarIniciales" class="px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold rounded-xl transition-all shadow-sm">
+            Importar Guerreros Z Iniciales
+          </button>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- Controles de Paginación Exactos a la Referencia -->
+        <!-- ============================================== -->
+        <div id="paginacionContenedor" class="flex flex-wrap items-center justify-center sm:justify-between gap-2 pt-3 border-t border-neutral-200 text-xs select-none">
+          <div class="flex items-center gap-1">
+            <!-- Primera -->
+            <button id="btnPrimera" class="px-3 py-1.5 bg-white hover:bg-neutral-50 border border-neutral-200 rounded-lg text-neutral-600 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors flex items-center gap-1">
+              <i class="fa-solid fa-angles-left text-[10px]"></i>
+              <span>Primera</span>
+            </button>
+            <!-- Anterior -->
+            <button id="btnAnterior" class="px-3 py-1.5 bg-white hover:bg-neutral-50 border border-neutral-200 rounded-lg text-neutral-600 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors flex items-center gap-1">
+              <i class="fa-solid fa-chevron-left text-[10px]"></i>
+              <span>Anterior</span>
+            </button>
+          </div>
+
+          <!-- Números de Página (Pills) -->
+          <div id="paginasNumeros" class="flex items-center gap-1">
+            <!-- Ejemplo: 1 (activo naranja), 2, 3, ..., 5 -->
+          </div>
+
+          <div class="flex items-center gap-1">
+            <!-- Siguiente -->
+            <button id="btnSiguiente" class="px-3 py-1.5 bg-white hover:bg-neutral-50 border border-neutral-200 rounded-lg text-neutral-600 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors flex items-center gap-1">
+              <span>Siguiente</span>
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+            <!-- Última -->
+            <button id="btnUltima" class="px-3 py-1.5 bg-white hover:bg-neutral-50 border border-neutral-200 rounded-lg text-neutral-600 disabled:opacity-40 disabled:cursor-not-allowed font-medium transition-colors flex items-center gap-1">
+              <span>Última</span>
+              <i class="fa-solid fa-angles-right text-[10px]"></i>
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Pie de Página -->
+  <footer class="py-6 text-center text-xs text-neutral-400 border-t border-neutral-100 bg-white">
+    <p>Bootcamp Frontend Python G31 JV - Victor Villazón</p>
+  </footer>
+
+  <!-- ============================================== -->
+  <!-- MODAL: Configuración de APIBox                 -->
+  <!-- ============================================== -->
+  <div id="modalConfigApi" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="bg-white border border-neutral-200 rounded-2xl max-w-md w-full p-6 shadow-xl space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-neutral-100">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-gear text-brand-orange"></i>
+          <h3 class="text-sm font-bold text-neutral-900">Endpoint de APIBox</h3>
+        </div>
+        <button id="btnCerrarConfigApi" class="text-neutral-400 hover:text-neutral-700">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-neutral-500">
+        Ingresa la URL de tu colección creada en <a href="https://apibox.vercel.app/" target="_blank" class="text-blue-600 underline">apibox.vercel.app</a>:
+      </p>
+
+      <div>
+        <label for="inputEndpointUrl" class="block text-xs font-semibold text-neutral-700 mb-1">
+          URL de la Colección
+        </label>
+        <input 
+          type="url" 
+          id="inputEndpointUrl" 
+          class="w-full px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-xs font-mono text-neutral-800 outline-none focus:border-brand-orange focus:bg-white"
+          placeholder="https://apibox.vercel.app/TU_KEY/api/personajes"
+        >
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-neutral-100">
+        <button id="btnRestablecerEndpoint" class="text-xs text-neutral-500 hover:text-brand-orange transition-colors">
+          Restablecer por defecto
+        </button>
+        <button id="btnGuardarEndpoint" class="px-4 py-2 bg-brand-orange hover:bg-brand-orangeDark text-white text-xs font-bold rounded-xl shadow-sm transition-colors">
+          Guardar Endpoint
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor Toast para Notificaciones -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none max-w-sm w-full"></div>
+
+  <!-- Scripts -->
+  <script src="main.js"></script>
+</body>
+</html>

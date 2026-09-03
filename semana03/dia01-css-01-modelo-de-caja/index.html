@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS: Flexbox</title>
-    <style>
-        .contenedor {
-            background-color: lightgoldenrodyellow;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS - Modelo de caja</title>
+  <style>
+    .caja {
+      background-color: coral;
 
-            width: 300px;
-            height: 300px;
+      width: 150px;
+      height: 50px;
 
-            display: flex;
-            flex-direction: row;
-            /* Valor por defecto */
-            /* flex-direction: column; */
+      border: 5px solid red;
 
-            gap: 20px;
+      padding: 10px; /* Espacio interno, entre el contenido y el borde */
+      margin: 10px; /* Espacio externo, después del borde */
 
-            justify-content: center;
-            /* justify-content: space-between; */
-            /* justify-content: space-around; */
+      padding: 20px 10px 20px 10px; /* TOP RIGTH BOTTOM LEFT */
 
-            align-items: center;
-            /* align-items: end; */
-            /* align-items: start; */
-        }
+      box-sizing: content-box; /* Valor por defecto, Deja que nosotros calculemos el ancho de la caja incluyendo ancho, alto, padding, borde, margin */
+      box-sizing: border-box;  /* Deja que el navegador calculem el ancho de la caja incluyendo ancho, alto, padding, borde, margin */
+    }
 
-        .box {
-            background-color: lightcoral;
+    .bloque {
+      background-color: lightcoral;
+      display: block;
+    }
 
-            width: 50px;
-            height: 50px;
+    .enlinea {
+      background-color: lightgreen;
+      display: inline;
+    }
 
-            text-align: center;
-            padding: 5px;
-        }
-    </style>
+    .enlinea-bloque {
+      background-color: lightpink;
+      display: inline-block;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="contenedor">
-        <!-- div.box*3 -->
-        <div class="box">A</div>
-        <div class="box">B</div>
-        <div class="box">C</div>
-    </div>
-</body>
+  
+  <div class="caja">Modelo de caja</div>
 
+  <!-- Tipos de cajas -->
+  <div class="bloque">BLOQUE</div>
+  <div class="enlinea">ENLINEA1</div>
+  <div class="enlinea">ENLINEA2</div>
+  <div class="enlinea-bloque">ENLINEA Y BLOQUE</div>
+  
+</body>
 </html>

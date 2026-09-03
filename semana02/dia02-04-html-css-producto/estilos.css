@@ -4,116 +4,112 @@
 */
 
 body {
-    background-color: hsl(30, 38%, 92%);
+  background-color: hsl(30, 38%, 92%);
 
-    font-family: "Montserrat", sans-serif;
-    font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
 
-    display: flex;
-    justify-content: center;
-    /*alineamiento horizontal*/
-    align-items: center;
-    /*alinemaiento vertical*/
-    height: 100vh;
+  display: flex;
+  justify-content: center; /* Alineamiento horizontal */
+  align-items: center; /* Alineamiento vertical */
+  height: 100vh;
 }
 
 main {
-    border-radius: 14px;
-    overflow: hidden;
-    width: 650px;
-    /*total del contenedor*/
+  /* border: 1px solid red; */
 
-    min-height: 400px;
-    /* CRECE AUTOMATICO*/
+  width: 650px;
 
-    display: flex;
+  min-height: 400px;
+
+  display: flex; /* Alineamiento horizontal */
+
+  border-radius: 14px;
+  overflow: hidden;
 }
 
-.foto {
-    width: 350px;
-    /*contenedor de la imagen*/
-    background-image: url(images/image-product-desktop.jpg);
-    background-size: cover;
+.photo {
+  /* border: 1px solid green; */
+
+  width: 350px;
+
+  background-image: url(images/image-product-desktop.jpg);
+  background-size: cover;
 }
 
-.contenido {
-    width: 300px;
-    /*contenedor del contenido*/
-    width: 300px;
-    padding: 28px;
-    background-color: hsl(0, 0%, 100%);
+.content {
+  /* border: 3px solid blue; */
+
+  width: 300px;
+
+  padding: 28px;
+
+  /* background-color: white; */
+  background-color: hsl(0, 0%, 100%);
 }
 
-.contenido h2 {
-    margin: 0;
-
-    color: hsl(228, 12%, 48%);
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 7px;
-    text-transform: uppercase;
+.content h2 {
+  /* border: 1px solid green; */
+  
+  margin: 0; /* Espaciado externo, es un valor por defecto */
+  
+  color: hsl(228, 12%, 48%);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 7px;
+  text-transform: uppercase;
 }
 
-.contenido h1 {
-    /* Aplicamos la fuente Fraunces */
-    font-family: "Fraunces", serif;
-    /* Color azul muy oscuro / casi negro característico del diseño */
-    color: hsl(212, 21%, 14%);
-    /* Tamaño de letra destacado */
-    font-size: 40px;
-    /* Peso de fuente negrita (bold) */
-    font-weight: 700;
-    /* Ajustamos el espacio entre líneas para que se vea compacto como en la imagen */
-    line-height: 1;
-    /* Espaciado exterior para separarlo del subtítulo y del párrafo */
-    margin-top: 12px;
-    margin-bottom: 20px;
+/* TODO: Terminar con los estilos de las etiquetas h1 y p aplicando colores, fuentes y tamños de letra */
+
+.content h1 {
+  color: hsl(212, 21%, 14%);
+  font-family: "Fraunces", serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1;
 }
 
-.contenido p {
-    /* Aplicamos la fuente Montserrat */
-    font-family: "Montserrat", sans-serif;
-    /* Color gris azulado para darle un tono suave */
-    color: hsl(228, 12%, 48%);
-    /* Tamaño de letra adecuado para lectura */
-    font-size: 14px;
-    /* Peso de fuente normal (regular) */
-    font-weight: 500;
-    /* Altura de línea para que el texto respire y sea legible */
-    line-height: 1.6;
-    /* Espaciado inferior para separarlo de la sección de precios */
-    margin-bottom: 24px;
+.content p {
+  color: hsl(228, 12%, 48%);
+  font-weight: 500;
+  line-height: 1.5;
 }
 
-.contenido div {
-    display: flex;
-    gap: 14px;
-    align-items: center;
+.content div {
+  display: flex;
+  gap: 14px;
+  align-items: center;
 }
 
-.contenido span {
-    font-family: "Fraunces", serif;
-    font-weight: 700;
-    font-size: 40px;
-    color: hsl(158, 36%, 37%);   
+.content span {
+  font-family: "Fraunces", serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: hsl(158, 36%, 37%);
 }
 
-.contenido s {
-    color: hsl(228, 12%, 48%); 
+.content s {
+  color: hsl(228, 12%, 48%);
 }
 
-.contenido button {
-    border: none;
-    background-color: hsl(158, 36%, 37%);
-    color:white;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
-    padding: 14px;
-    width: 100%;
-    border-radius: 7px;
-    display: flex;
-    justify-content: center;
-    gap: 7px;
+.content button {
+  /* border: 1px solid red; */
 
-    margin-top: 21px;
+  border: none;
+  background-color: hsl(158, 36%, 37%);
+  color: white;
+
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+
+  padding: 14px;
+  width: 100%;
+  border-radius: 7px;
+
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+
+  margin-top: 21px;
 }

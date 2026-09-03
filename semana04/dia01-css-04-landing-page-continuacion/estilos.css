@@ -1,203 +1,257 @@
-/*font-family: "Raleway", sans-serif;
-font-family: "Open Sans", sans-serif;*/
+/*
+font-family: "Raleway", sans-serif;
+font-family: "Open Sans", sans-serif;
+*/
 
-/*GENERALES*/
+/* GENERALES */
 
-/*SELECTOR UNIVERSAL*/
+/* Selector universal */
 * {
-    /*border: 1px solid red;*/
-    box-sizing: border-box; /*PARA QUE SE ENCARGUE AUTOMATICAMENTE PARA QUE TODO ENCAJE*/
-    margin: 0;
+  /* border: 1px solid red; */
+  box-sizing: border-box;
+  margin: 0;
 }
 
 html {
-    font-size: 14px;
+  font-size: 14px; /* 16px es el valor por defecto */
 }
 
-body{
-    background-color: hsl(217, 28%, 15%);
+body {
+  background-color: hsl(218, 28%, 13%);
 
-    color: hsl(0, 0%, 100%);
-    font-family: "Open Sans", sans-serif;
+  color: hsl(0, 0%, 100%);
+
+  font-family: "Open Sans", sans-serif;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+
+  text-decoration: none;
 }
 
 img {
-    /*TODO: RWD (RESPONSIVE WEB DESING) para las imagenes*/
-    max-width: 100%; /*LA IMAGEN NUNCA SERA MAS GRANDE QUE SU CONTENEDOR*/
-    height: auto;
+  /* TODO: RWD(RESPONSIVE WEB DESIGN) para las imágenes */
+  max-width: 100%; /* La imagen nunca será más grande que su contenedor */
+  height: auto;
 }
 
-/*UTILITARIOS*/
+/* UTILITARIOS  */
 
 .hidden {
- display: none;
+  display: none;
 }
 
 .wrapper {
-    width: min(100% - 3rem, 1440px);
-    margin: 0 auto;
+  width: min(100% - 42px, 1440px); /* TODO: Adaptar el ancho a dispositivos más pequeños como tablets o móviles */
+
+  margin: 0 auto;
 }
 
-/*HEADER*/
+/* HEADER */
 
 .header {
-    /*border: 1px solid red;*/
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  /* border: 1px solid red; */
 
-    padding-top: 42px;
-    background-color: hsl(217, 28%, 15%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-top: 42px;
+
+  background-color: hsl(217, 28%, 15%);
 }
 
-.header__logo{
-    width: 148px;
+.header__logo {
+  
+  width: 140px;
 }
 
-.header__nav{
+.header__nav {
 
-    display: flex;
-    gap: 3rem; /*multiplo de 14*/
+  display: flex;
+  gap: 42px; /* 42px = 14 * 3 = 3rem */
 }
 
-/*HERO*/
+/* HERO */
 
-/*REM: Root EM (Ancho de la letra M)*/
+/* REM: Root EM (Ancho de la letra M) */
 
 .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem; /*separacion entre lineas 2rem <> 28px <> 14px * 2 */
-    padding-top: 3rem;
-    padding-bottom: 12rem; /*168px*/
+  /* border: 1px solid red; */
 
-    background-image: url(images/bg-curvy-desktop.svg);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: contain;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem; /* 2rem <> 28px <> 14px * 2 */
+
+  padding-top: 3rem;
+  padding-bottom: 12rem; /* 168px */
+
+  background-color: hsl(217, 28%, 15%);
+
+  background-image: url(images/bg-curvy-desktop.svg);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
 }
 
-.hero__title{
-    /*min: elije el valor mas pequeñp entre los que les pasemos*/
-    width: min(100% - 3rem, 720px);
-    font-family: "Raleway", sans-serif;
-    
-    font-size: 2.5rem;
-    text-align: center;
+.hero__title {
+  /* min: Elije el valor más pequeño entre los que le pasemos */
+  width: min(100% - 3rem, 720px);
 
+  font-family: "Raleway", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700; /* por defecto */
+
+  text-align: center;
 }
 
-.hero__text{
-    width: min(100% - 3rem, 455px);
-    text-align: center;
+.hero__text {
+  width: min(100% - 3rem, 460px);
+
+  text-align: center;
 }
 
-.hero__button{
-    border: none;
+.hero__button {
+  border: none;
+  border-radius: 7rem;
+  padding: 1rem;
+  min-width: 260px;
+  color: white;
 
-    background-color: hsl(176, 68%, 64%);
-    border-radius: 7rem;
-    padding: 1rem;
-    min-width: 260px;
-    color: white;
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+
+  background: linear-gradient(
+    90deg,
+    hsl(176, 68%, 64%) 0%,
+    hsl(198, 60%, 50%) 100%
+  );
 }
 
-.features{
-    
+/*
+TAMAÑOS DE PANTALLA SUGERIDOS:
 
-    display: grid;
-    grid-template-columns: 340px;
-    grid-template-rows: 240px 240px;
-    justify-content: center;
-    gap: 5rem;
+576px  -> pantallas pequeñas (celulares)
+768px  -> pantallas pequeñas (tablets y celulares)
+992px  -> pantallas medianas (Desktop)
+1280px -> pantallas grandes (Desktops, TVs)
+*/
+
+/* TODO: Publicar esta página en netlify con el header, hero y sección (stay productive). Tienen hasta el domingo a la media noche (12am). Lo comparten por discord en el canal de presentaciones de la semana3 */
+
+.features {
+  /* border: 1px solid red; */
+
+  display: grid;
+  grid-template-columns: 340px;
+  grid-template-rows: 240px 240px;
+  justify-content: center;
+  gap: 5rem; /* 5rem <> 14 * 5 <> 70px */
 }
+
+/* MEDIA QUERY: Se aplica a dispositivos móviles, tables o desktops segun el tamaño de la pantalla del dispositivo */
 
 @media (min-width: 992px) {
-    .features{
-        grid-template-columns: 340px 340px;
-    }
+  .features {
+    grid-template-columns: 340px 340px;
+  }
 }
 
 .feature {
-    
+  /* border: 1px solid blue; */
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
-.feature__title{
-    text-align: center;
-    font-family: "Raleway", sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
+/* TODO: terminar los estilos de estas clases */
+
+.feature__title {
+  text-align: center;
+
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
 }
 
 .feature__text {
-    text-align: center;
-    line-height: 22.4px;
+  text-align: center;
+
+  line-height: 1.6; /* 14px x 1.6 = 22.4px -> texto que ocupará aprox. cada línea de alto */
 }
 
-.testimonials{
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+/* TESTIMONIALS */
+
+.testimonials {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
 }
 
-.testimonial--wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
+.testimonials--wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 
-    background-image: url(images/bg-quotes.png);
-    background-repeat: no-repeat;
-    background-position: 100px - 10px;
+  padding-top: 30px;
+
+  background-image: url(images/bg-quotes.png);
+  background-repeat: no-repeat;
+  background-position: 90px -10px;
 }
+
 @media (min-width: 992px) {
-    .testimonials--wrapper {
-            flex-direction: row;
-    }
+  /* TODO: Adaptar los testimonias a dispositivos móviles mediante un media query */
+  .testimonials--wrapper {
+    flex-direction: row;
+
+    background-position: 240px -10px;
+  }
 }
 
 .testimonial {
-    
+  /* border: 1px solid yellow; */
 
-    width: 23rem;
-    padding: 2rem 1.5rem 1.5rem 1.5rem;
-    border-radius: 0.5rem;
-    background-color: hsl(219, 30%, 18%);
+  width: 23rem; /* 23rem * 14px = 322px */
+  /* padding: TOP RIGHT BOTTOM LEFT */
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  border-radius: 0.5rem;
+  background-color: hsl(219, 30%, 18%);
 }
 
-.testimonial__text{
-    font-size: 1.3rem;
-    margin-bottom: 2rem;
+.testimonial__text {
+  font-size: 1.2rem;
+
+  margin-bottom: 2rem;
 }
 
-.testimonial__profile{
-    
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    font-size: 0.9rem;
+.testimonial__profile {
+  /* border: 1px solid red; */
+
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: 0.9rem;
 }
 
-.testimonial__info h4{
-    font-weight: 700;
+.testimonial__avatar {
+  border-radius: 2rem;
 }
 
-.testimonial__info h5{
-    font-weight: 400;
+.testimonial__info h4 {
+  font-weight: 700;
 }
 
-.testimonial__avatar{
-    border-radius: 2rem;
+.testimonial__info h5 {
+  font-weight: 400;
+}
+
+.footer {
+  
 }

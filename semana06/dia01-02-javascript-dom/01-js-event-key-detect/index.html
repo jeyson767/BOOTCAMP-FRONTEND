@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Javascript + DOM: Key event detect</title>
+  <style>
+    #tecla {
+      color: orangered;
+      font-size: 32px;
+    }
+    #caracter {
+      color: blue;
+      font-size: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Javascript + DOM: Key event detect</h1>
+
+  <main>
+    <h2>JS Key detect</h2>
+
+    <h3 id="tecla">0</h3>
+
+    <h4 id="caracter">A</h4>
+  </main>
+
+  <script>
+    const tecla = document.getElementById('tecla')
+    const caracter = document.getElementById('caracter')
+
+    document.addEventListener('keydown', function(event) {
+      console.log('Presionaste una tecla!')
+
+      console.log({event})
+      console.log(event.key) // Letra presionada
+      console.log(event.keyCode) // Código ASCII
+
+      tecla.textContent = event.keyCode
+      caracter.textContent = event.key
+    })
+
+    // console.log({ tecla }) // textContent
+    // console.log(tecla.textContent) // Leemos el contenido de la etiqueta h3
+
+    // // TODO: Leer el valor del elemento h4
+    // console.log(caracter)
+    // console.log({ caracter })
+    // console.log(caracter.textContent)
+
+    // tecla.textContent = "999" // Escribir sobre los atributos del elemento html
+  </script>
+</body>
+</html>
