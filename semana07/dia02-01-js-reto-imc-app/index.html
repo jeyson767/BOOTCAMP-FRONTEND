@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Índice de Masa Corporal (IMC)</title>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #101318;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Plus Jakarta Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding: 1.25rem;
+    }
+
+    /* Tarjeta principal */
+    .card {
+      width: 480px;
+      max-width: 100%;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 28px 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Título */
+    h1 {
+      margin-bottom: 24px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 500;
+      color: #1f2937;
+      letter-spacing: -0.01em;
+    }
+
+    /* Etiquetas */
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #4b5563;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    /* Campos de texto */
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background-color: #ffffff;
+      font-size: 16px;
+      color: #111827;
+      outline: none;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    input::placeholder {
+      color: #9ca3af;
+    }
+
+    input:focus {
+      border-color: #198754;
+      box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.15);
+    }
+
+    /* Espacio entre campos */
+    .campo {
+      margin-bottom: 20px;
+    }
+
+    /* Botón */
+    .btn-calculate {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background-color: #198754;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-calculate:hover {
+      background-color: #157347;
+    }
+
+    .btn-calculate:active {
+      transform: scale(0.99);
+    }
+
+    /* Caja del resultado */
+    .result-box {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      transition: all 0.3s ease;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .result-box.hidden {
+      display: none;
+    }
+
+    /* Estados de colores del resultado */
+    .result-box.bajo {
+      background-color: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+    }
+
+    .result-box.normal {
+      background-color: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+    }
+
+    .result-box.sobrepeso {
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      color: #92400e;
+    }
+
+    .result-box.obeso {
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+
+    /* Texto del resultado */
+    .imc-message {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .imc-value {
+      margin-top: 10px;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .imc-detalle {
+      margin-top: 6px;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <h1>Indice de masa corporal</h1>
+
+    <form id="imcForm" novalidate>
+      <!-- Campo Peso -->
+      <div class="campo">
+        <label for="peso">Peso (KG)</label>
+        <input
+          type="number"
+          id="peso"
+          placeholder="Ej. 50"
+          min="1"
+          max="350"
+          step="0.1"
+          required
+        />
+      </div>
+
+      <!-- Campo Altura -->
+      <div class="campo">
+        <label for="altura">Altura (CM)</label>
+        <input
+          type="number"
+          id="altura"
+          placeholder="Ej. 170"
+          min="40"
+          max="260"
+          step="0.1"
+          required
+        />
+      </div>
+
+      <!-- Botón Calcular -->
+      <button type="submit" class="btn-calculate" id="btnCalcular">
+        Calcular
+      </button>
+    </form>
+
+    <!-- Caja de Resultado -->
+    <div id="resultadoContainer" class="result-box hidden">
+      <div id="imcMensaje" class="imc-message"></div>
+      <div id="imcValor" class="imc-value"></div>
+      <div id="imcDetalle" class="imc-detalle"></div>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
