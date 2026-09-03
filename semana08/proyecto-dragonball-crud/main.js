@@ -2,133 +2,35 @@
  * ====================================================================
  * Dragon Ball CRUD - JavaScript Vanilla (Maratón G31 - 2026)
  * Bootcamp Frontend Python G31 JV • Victor Villazón
+ * Consumo directo de Dragon Ball API: https://dragonball-api.com/api/characters
  * ====================================================================
  */
 
 // --------------------------------------------------------------------
-// 1. CONFIGURACIÓN Y CONSTANTES
+// 1. CONSTANTES Y ENDPOINT DE LA API
 // --------------------------------------------------------------------
-const STORAGE_ENDPOINT_KEY = 'DBZ_APIBOX_ENDPOINT_URL'
-const STORAGE_PERSONAJES_KEY = 'DBZ_PERSONAJES_LOCAL_STORAGE_V2'
-const DEFAULT_API_URL = 'https://apibox.vercel.app/2aSCD2Sbz4kg4AcacfeJLMmalhKR3Xgs/api/personajes'
-
-// 12 Personajes Oficiales con URLs 100% verificadas (Status 200 OK)
-const PERSONAJES_OFICIALES = [
-  {
-    id: 'db-1',
-    name: 'Goku',
-    image: 'https://dragonball-api.com/characters/goku_normal.webp',
-    race: 'Saiyan',
-    gender: 'Male'
-  },
-  {
-    id: 'db-2',
-    name: 'Vegeta',
-    image: 'https://dragonball-api.com/characters/vegeta_normal.webp',
-    race: 'Saiyan',
-    gender: 'Male'
-  },
-  {
-    id: 'db-3',
-    name: 'Piccolo',
-    image: 'https://dragonball-api.com/characters/picolo_normal.webp',
-    race: 'Namekian',
-    gender: 'Male'
-  },
-  {
-    id: 'db-4',
-    name: 'Bulma',
-    image: 'https://dragonball-api.com/characters/bulma.webp',
-    race: 'Human',
-    gender: 'Female'
-  },
-  {
-    id: 'db-5',
-    name: 'Gohan',
-    image: 'https://dragonball-api.com/characters/gohan.webp',
-    race: 'Saiyan',
-    gender: 'Male'
-  },
-  {
-    id: 'db-6',
-    name: 'Trunks',
-    image: 'https://dragonball-api.com/characters/Trunks_Buu_Artwork.webp',
-    race: 'Saiyan',
-    gender: 'Male'
-  },
-  {
-    id: 'db-7',
-    name: 'Krillin',
-    image: 'https://dragonball-api.com/characters/Krilin_Universo7.webp',
-    race: 'Human',
-    gender: 'Male'
-  },
-  {
-    id: 'db-8',
-    name: 'Freezer',
-    image: 'https://dragonball-api.com/characters/Freezer.webp',
-    race: 'Frieza Race',
-    gender: 'Male'
-  },
-  {
-    id: 'db-9',
-    name: 'Cell',
-    image: 'https://dragonball-api.com/characters/celula.webp',
-    race: 'Android',
-    gender: 'Male'
-  },
-  {
-    id: 'db-10',
-    name: 'Majin Buu',
-    image: 'https://dragonball-api.com/characters/BuuGordo_Universo7.webp',
-    race: 'Majin',
-    gender: 'Male'
-  },
-  {
-    id: 'db-11',
-    name: 'Android 18',
-    image: 'https://dragonball-api.com/characters/Androide_18_Artwork.webp',
-    race: 'Android',
-    gender: 'Female'
-  },
-  {
-    id: 'db-12',
-    name: 'Chi-Chi',
-    image: 'https://dragonball-api.com/characters/ChiChi_DBS.webp',
-    race: 'Human',
-    gender: 'Female'
-  }
-]
+const API_URL = 'https://dragonball-api.com/api/characters?limit=50'
+const STORAGE_KEY = 'DRAGON_BALL_CHARACTERS_DATA'
 
 // --------------------------------------------------------------------
 // 2. ESTADO GLOBAL
 // --------------------------------------------------------------------
 const estado = {
   personajes: [],
-  personajesFiltrados: [],
   paginaActual: 1,
-  porPagina: 5,
-  busqueda: '',
-  filtroRaza: 'todos',
+  porPagina: 5, // 5 personajes por página (como en la referencia)
   editandoId: null,
-  cargando: false,
-  modoOffline: false,
-  apiUrl: localStorage.getItem(STORAGE_ENDPOINT_KEY) || DEFAULT_API_URL
+  cargando: false
 }
 
 // --------------------------------------------------------------------
-// 3. ELEMENTOS DEL DOM
+// 3. REFERENCIAS DEL DOM
 // --------------------------------------------------------------------
 const DOM = {
   contadorPersonajes: document.querySelector('#contadorPersonajes'),
   loading: document.querySelector('#loading'),
   listaPersonajes: document.querySelector('#listaPersonajes'),
   estadoVacio: document.querySelector('#estadoVacio'),
-  btnPoblarIniciales: document.querySelector('#btnPoblarIniciales'),
-
-  // Filtros y Búsqueda
-  inputBuscar: document.querySelector('#inputBuscar'),
-  filtroRaza: document.querySelector('#filtroRaza'),
 
   // Paginación
   paginacionContenedor: document.querySelector('#paginacionContenedor'),
@@ -148,7 +50,6 @@ const DOM = {
   inputImagen: document.querySelector('#inputImagen'),
   inputRaza: document.querySelector('#inputRaza'),
   selectGenero: document.querySelector('#selectGenero'),
-  selectSugerencia: document.querySelector('#selectSugerencia'),
   imgPreview: document.querySelector('#imgPreview'),
   btnSubmit: document.querySelector('#btnSubmit'),
   btnSubmitTexto: document.querySelector('#btnSubmitTexto'),
@@ -158,224 +59,142 @@ const DOM = {
   errorImagen: document.querySelector('#errorImagen'),
   errorRaza: document.querySelector('#errorRaza'),
 
-  // Botones de Cabecera
-  btnRecargar: document.querySelector('#btnRecargar'),
-  iconRecargar: document.querySelector('#iconRecargar'),
-  btnConfigApi: document.querySelector('#btnConfigApi'),
-
-  // Modal Config API
-  modalConfigApi: document.querySelector('#modalConfigApi'),
-  inputEndpointUrl: document.querySelector('#inputEndpointUrl'),
-  btnCerrarConfigApi: document.querySelector('#btnCerrarConfigApi'),
-  btnGuardarEndpoint: document.querySelector('#btnGuardarEndpoint'),
-  btnRestablecerEndpoint: document.querySelector('#btnRestablecerEndpoint'),
-
   // Toasts
   toastContainer: document.querySelector('#toastContainer')
 }
 
 // --------------------------------------------------------------------
-// 4. INICIALIZACIÓN INMEDIATA Y CONTROL ASÍNCRONO
+// 4. CONSUMO DE API Y PERSISTENCIA
 // --------------------------------------------------------------------
 
 /**
- * Inicializa los datos inmediatamente desde LocalStorage o los 12 personajes oficiales
+ * Carga los personajes directamente desde https://dragonball-api.com/api/characters
  */
-function inicializarDatosLocales() {
-  const guardados = localStorage.getItem(STORAGE_PERSONAJES_KEY)
+async function cargarPersonajes() {
+  // 1. Si ya tenemos datos guardados en LocalStorage (por ediciones/agregados previos), usarlos
+  const guardados = localStorage.getItem(STORAGE_KEY)
   if (guardados) {
     try {
-      const parsed = JSON.parse(guardados)
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        estado.personajes = parsed
-      } else {
-        estado.personajes = [...PERSONAJES_OFICIALES]
+      const data = JSON.parse(guardados)
+      if (Array.isArray(data) && data.length > 0) {
+        estado.personajes = data
+        renderizarLista()
+        renderizarPaginacion()
+        actualizarContador()
+        return
       }
     } catch (e) {
-      estado.personajes = [...PERSONAJES_OFICIALES]
+      console.warn('Error al leer caché local:', e)
     }
-  } else {
-    estado.personajes = [...PERSONAJES_OFICIALES]
-    guardarEnLocalStorage(estado.personajes)
   }
 
-  aplicarFiltros()
-  actualizarContador()
-}
-
-/**
- * Intenta sincronizar con APIBox en segundo plano si está disponible
- */
-async function sincronizarConApi(silencioso = true) {
-  if (!silencioso) {
-    mostrarCargando(true)
-  }
+  // 2. Si es la primera vez, consultar la API oficial de Dragon Ball
+  mostrarCargando(true)
 
   try {
-    const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 4000)
-
-    const respuesta = await fetch(estado.apiUrl, { signal: controller.signal })
-    clearTimeout(timeoutId)
+    const respuesta = await fetch(API_URL)
 
     if (!respuesta.ok) {
-      throw new Error(`HTTP ${respuesta.status}`)
+      throw new Error(`Error ${respuesta.status}: No se pudo obtener la lista de personajes`)
     }
 
     const data = await respuesta.json()
+    const lista = data.items || data || []
 
-    if (data && data.error) {
-      throw new Error(data.error)
-    }
+    // Mapear los campos requeridos
+    estado.personajes = lista.map((p, index) => ({
+      id: p.id || `char-${index + 1}`,
+      name: p.name || 'Sin Nombre',
+      image: p.image || 'https://dragonball-api.com/characters/goku_normal.webp',
+      race: p.race || 'Saiyan',
+      gender: p.gender || 'Male'
+    }))
 
-    const lista = Array.isArray(data) ? data : (data.items || [])
-
-    if (lista.length > 0) {
-      estado.personajes = lista.map((p, index) => ({
-        id: p.id || p._id || `db-${index}`,
-        name: p.name || 'Sin Nombre',
-        image: p.image || 'https://dragonball-api.com/characters/goku_normal.webp',
-        race: p.race || 'Saiyan',
-        gender: p.gender || 'Male'
-      }))
-
-      estado.modoOffline = false
-      guardarEnLocalStorage(estado.personajes)
-      aplicarFiltros()
-      actualizarContador()
-      if (!silencioso) mostrarToast('Datos sincronizados con APIBox.', 'success')
-    } else {
-      // Si la API remota está vacía y el usuario pide recargar, sembrar datos
-      if (!silencioso) {
-        await sembrarPersonajesRemotos()
-      }
-    }
+    guardarEnLocalStorage(estado.personajes)
+    renderizarLista()
+    renderizarPaginacion()
+    actualizarContador()
 
   } catch (error) {
-    estado.modoOffline = true
-    console.warn('Usando almacenamiento local para Dragon Ball CRUD:', error.message)
-    if (!silencioso) {
-      mostrarToast('Mostrando personajes de la base local (puedes conectar tu APIBox en API Endpoint).', 'info')
-    }
+    console.error('Error al cargar personajes desde Dragon Ball API:', error)
+    mostrarToast(`Error al cargar datos: ${error.message}`, 'error')
   } finally {
-    if (!silencioso) {
-      mostrarCargando(false)
-    }
+    mostrarCargando(false)
   }
 }
 
 /**
- * Guarda un nuevo personaje (POST a APIBox o persistencia local)
+ * Agrega un nuevo personaje al inicio de la lista
  */
-async function crearPersonaje(personaje) {
+function agregarPersonaje(datos) {
   const nuevo = {
-    ...personaje,
-    id: `db-${Date.now()}`
-  }
-
-  if (!estado.modoOffline) {
-    try {
-      const opciones = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(personaje)
-      }
-      const res = await fetch(estado.apiUrl, opciones)
-      if (res.ok) {
-        const creado = await res.json()
-        nuevo.id = creado.id || creado._id || nuevo.id
-      }
-    } catch (e) {
-      console.warn('No se pudo enviar POST a APIBox, guardando localmente:', e)
-    }
+    id: `db-${Date.now()}`,
+    name: datos.name,
+    image: datos.image,
+    race: datos.race,
+    gender: datos.gender || 'Male'
   }
 
   estado.personajes.unshift(nuevo)
   guardarEnLocalStorage(estado.personajes)
-  aplicarFiltros()
+  estado.paginaActual = 1
+  renderizarLista()
+  renderizarPaginacion()
   actualizarContador()
+  mostrarToast(`"${nuevo.name}" agregado con éxito.`, 'success')
 }
 
 /**
- * Actualiza un personaje existente (PUT a APIBox o persistencia local)
+ * Actualiza un personaje existente
  */
-async function actualizarPersonaje(id, datos) {
-  if (!estado.modoOffline) {
-    try {
-      const opciones = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(datos)
-      }
-      await fetch(`${estado.apiUrl}/${id}`, opciones)
-    } catch (e) {
-      console.warn('No se pudo enviar PUT a APIBox, actualizando localmente:', e)
-    }
-  }
-
+function modificarPersonaje(id, datos) {
   const index = estado.personajes.findIndex(p => String(p.id) === String(id))
   if (index !== -1) {
     estado.personajes[index] = {
       ...estado.personajes[index],
-      ...datos
+      name: datos.name,
+      image: datos.image,
+      race: datos.race,
+      gender: datos.gender || 'Male'
     }
+
     guardarEnLocalStorage(estado.personajes)
-    aplicarFiltros()
+    renderizarLista()
+    renderizarPaginacion()
     actualizarContador()
+    mostrarToast(`"${datos.name}" actualizado correctamente.`, 'success')
   }
 }
 
 /**
- * Elimina un personaje (DELETE a APIBox o persistencia local)
+ * Elimina un personaje por su ID
  */
-async function eliminarPersonaje(id) {
-  if (!estado.modoOffline) {
-    try {
-      await fetch(`${estado.apiUrl}/${id}`, { method: 'DELETE' })
-    } catch (e) {
-      console.warn('No se pudo enviar DELETE a APIBox, eliminando localmente:', e)
-    }
-  }
-
+function borrarPersonaje(id) {
   estado.personajes = estado.personajes.filter(p => String(p.id) !== String(id))
   guardarEnLocalStorage(estado.personajes)
-  aplicarFiltros()
-  actualizarContador()
-}
 
-/**
- * Sembrar los personajes oficiales en APIBox remoto
- */
-async function sembrarPersonajesRemotos() {
-  for (const p of PERSONAJES_OFICIALES) {
-    try {
-      await fetch(estado.apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: p.name,
-          image: p.image,
-          race: p.race,
-          gender: p.gender
-        })
-      })
-    } catch (e) {
-      console.warn('Fallo al sembrar en remoto:', e)
-    }
+  // Ajustar página si la última quedó vacía
+  const totalPags = Math.ceil(estado.personajes.length / estado.porPagina) || 1
+  if (estado.paginaActual > totalPags) {
+    estado.paginaActual = totalPags
   }
-  await sincronizarConApi(true)
+
+  renderizarLista()
+  renderizarPaginacion()
+  actualizarContador()
+  mostrarToast('Personaje eliminado.', 'success')
 }
 
 function guardarEnLocalStorage(lista) {
   try {
-    localStorage.setItem(STORAGE_PERSONAJES_KEY, JSON.stringify(lista))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(lista))
   } catch (e) {
-    console.warn('Error al guardar en localStorage:', e)
+    console.warn('No se pudo guardar en LocalStorage:', e)
   }
 }
 
 // --------------------------------------------------------------------
-// 5. RENDERIZADO Y CONTROL DEL DOM
+// 5. RENDERIZADO DEL DOM Y PAGINACIÓN
 // --------------------------------------------------------------------
 
 function mostrarCargando(activo) {
@@ -384,42 +203,15 @@ function mostrarCargando(activo) {
     DOM.loading.classList.remove('hidden')
     DOM.listaPersonajes.classList.add('hidden')
     DOM.estadoVacio.classList.add('hidden')
-    DOM.iconRecargar.classList.add('rotate-anim')
   } else {
     DOM.loading.classList.add('hidden')
-    DOM.iconRecargar.classList.remove('rotate-anim')
   }
-}
-
-function aplicarFiltros() {
-  let filtrados = [...estado.personajes]
-
-  // Búsqueda por nombre
-  if (estado.busqueda.trim() !== '') {
-    const q = estado.busqueda.toLowerCase().trim()
-    filtrados = filtrados.filter(p => p.name.toLowerCase().includes(q))
-  }
-
-  // Filtro por raza
-  if (estado.filtroRaza !== 'todos') {
-    filtrados = filtrados.filter(p => p.race.toLowerCase() === estado.filtroRaza.toLowerCase())
-  }
-
-  estado.personajesFiltrados = filtrados
-
-  const maxPags = Math.ceil(filtrados.length / estado.porPagina) || 1
-  if (estado.paginaActual > maxPags) {
-    estado.paginaActual = 1
-  }
-
-  renderizarLista()
-  renderizarPaginacion()
 }
 
 function renderizarLista() {
   DOM.listaPersonajes.innerHTML = ''
 
-  if (estado.personajesFiltrados.length === 0) {
+  if (estado.personajes.length === 0) {
     DOM.listaPersonajes.classList.add('hidden')
     DOM.estadoVacio.classList.remove('hidden')
     return
@@ -428,9 +220,10 @@ function renderizarLista() {
   DOM.estadoVacio.classList.add('hidden')
   DOM.listaPersonajes.classList.remove('hidden')
 
+  // Obtener los 5 personajes de la página actual
   const inicio = (estado.paginaActual - 1) * estado.porPagina
   const fin = inicio + estado.porPagina
-  const itemsPagina = estado.personajesFiltrados.slice(inicio, fin)
+  const itemsPagina = estado.personajes.slice(inicio, fin)
 
   itemsPagina.forEach(personaje => {
     const card = document.createElement('article')
@@ -493,7 +286,7 @@ function renderizarLista() {
 }
 
 function renderizarPaginacion() {
-  const totalItems = estado.personajesFiltrados.length
+  const totalItems = estado.personajes.length
   const totalPaginas = Math.ceil(totalItems / estado.porPagina) || 1
 
   DOM.btnPrimera.disabled = estado.paginaActual <= 1
@@ -572,7 +365,6 @@ function cancelarEdicion() {
   DOM.btnSubmitTexto.textContent = 'Agregar Personaje'
   DOM.btnSubmitIcon.className = 'fa-solid fa-plus font-bold'
   DOM.btnCancelarEdicion.classList.add('hidden')
-  DOM.selectSugerencia.value = ''
   limpiarErrores()
 }
 
@@ -637,43 +429,30 @@ function mostrarToast(mensaje, tipo = 'info') {
 // --------------------------------------------------------------------
 function inicializarEventos() {
 
-  DOM.formPersonaje.addEventListener('submit', async (e) => {
+  DOM.formPersonaje.addEventListener('submit', (e) => {
     e.preventDefault()
 
     if (!validarFormulario()) return
 
-    const datosPersonaje = {
+    const datos = {
       name: DOM.inputNombre.value.trim(),
       image: DOM.inputImagen.value.trim(),
       race: DOM.inputRaza.value.trim(),
       gender: DOM.selectGenero.value
     }
 
-    DOM.btnSubmit.disabled = true
-    DOM.btnSubmitTexto.textContent = 'Guardando...'
-
-    try {
-      if (estado.editandoId) {
-        await actualizarPersonaje(estado.editandoId, datosPersonaje)
-        mostrarToast(`"${datosPersonaje.name}" actualizado correctamente.`, 'success')
-      } else {
-        await crearPersonaje(datosPersonaje)
-        mostrarToast(`"${datosPersonaje.name}" agregado con éxito.`, 'success')
-      }
-
-      cancelarEdicion()
-    } catch (error) {
-      console.error('Error al guardar:', error)
-      mostrarToast(`Error: ${error.message}`, 'error')
-    } finally {
-      DOM.btnSubmit.disabled = false
-      DOM.btnSubmitTexto.textContent = estado.editandoId ? 'Actualizar Personaje' : 'Agregar Personaje'
+    if (estado.editandoId) {
+      modificarPersonaje(estado.editandoId, datos)
+    } else {
+      agregarPersonaje(datos)
     }
+
+    cancelarEdicion()
   })
 
   DOM.btnCancelarEdicion.addEventListener('click', cancelarEdicion)
 
-  DOM.listaPersonajes.addEventListener('click', async (e) => {
+  DOM.listaPersonajes.addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-action]')
     if (!btn) return
 
@@ -686,14 +465,9 @@ function inicializarEventos() {
       const confirmado = confirm(`¿Estás seguro de eliminar a "${personaje ? personaje.name : 'este personaje'}"?`)
       if (!confirmado) return
 
-      try {
-        await eliminarPersonaje(id)
-        mostrarToast('Personaje eliminado.', 'success')
-        if (estado.editandoId === id) {
-          cancelarEdicion()
-        }
-      } catch (error) {
-        mostrarToast(`Error al eliminar: ${error.message}`, 'error')
+      borrarPersonaje(id)
+      if (estado.editandoId === id) {
+        cancelarEdicion()
       }
     }
   })
@@ -703,33 +477,6 @@ function inicializarEventos() {
     if (url) {
       DOM.imgPreview.src = url
     }
-  })
-
-  DOM.selectSugerencia.addEventListener('change', (e) => {
-    const nombre = e.target.value
-    if (!nombre) return
-
-    const guerrero = PERSONAJES_OFICIALES.find(g => g.name === nombre)
-    if (guerrero) {
-      DOM.inputNombre.value = guerrero.name
-      DOM.inputImagen.value = guerrero.image
-      DOM.inputRaza.value = guerrero.race
-      DOM.selectGenero.value = guerrero.gender
-      DOM.imgPreview.src = guerrero.image
-      limpiarErrores()
-    }
-  })
-
-  DOM.inputBuscar.addEventListener('input', (e) => {
-    estado.busqueda = e.target.value
-    estado.paginaActual = 1
-    aplicarFiltros()
-  })
-
-  DOM.filtroRaza.addEventListener('change', (e) => {
-    estado.filtroRaza = e.target.value
-    estado.paginaActual = 1
-    aplicarFiltros()
   })
 
   DOM.btnPrimera.addEventListener('click', () => {
@@ -749,7 +496,7 @@ function inicializarEventos() {
   })
 
   DOM.btnSiguiente.addEventListener('click', () => {
-    const totalPags = Math.ceil(estado.personajesFiltrados.length / estado.porPagina)
+    const totalPags = Math.ceil(estado.personajes.length / estado.porPagina)
     if (estado.paginaActual < totalPags) {
       estado.paginaActual++
       renderizarLista()
@@ -758,62 +505,12 @@ function inicializarEventos() {
   })
 
   DOM.btnUltima.addEventListener('click', () => {
-    const totalPags = Math.ceil(estado.personajesFiltrados.length / estado.porPagina)
+    const totalPags = Math.ceil(estado.personajes.length / estado.porPagina)
     if (estado.paginaActual < totalPags) {
       estado.paginaActual = totalPags
       renderizarLista()
       renderizarPaginacion()
     }
-  })
-
-  DOM.btnRecargar.addEventListener('click', () => {
-    sincronizarConApi(false)
-  })
-
-  DOM.btnPoblarIniciales.addEventListener('click', () => {
-    estado.personajes = [...PERSONAJES_OFICIALES]
-    guardarEnLocalStorage(estado.personajes)
-    aplicarFiltros()
-    actualizarContador()
-    mostrarToast('12 Guerreros Z cargados con éxito.', 'success')
-  })
-
-  DOM.btnConfigApi.addEventListener('click', () => {
-    DOM.inputEndpointUrl.value = estado.apiUrl
-    DOM.modalConfigApi.classList.add('modal-visible')
-  })
-
-  DOM.btnCerrarConfigApi.addEventListener('click', () => {
-    DOM.modalConfigApi.classList.remove('modal-visible')
-  })
-
-  DOM.modalConfigApi.addEventListener('click', (e) => {
-    if (e.target === DOM.modalConfigApi) {
-      DOM.modalConfigApi.classList.remove('modal-visible')
-    }
-  })
-
-  DOM.btnGuardarEndpoint.addEventListener('click', () => {
-    const url = DOM.inputEndpointUrl.value.trim()
-    if (!url || (!url.startsWith('http://') && !url.startsWith('https://'))) {
-      mostrarToast('Ingresa una URL válida.', 'error')
-      return
-    }
-
-    estado.apiUrl = url
-    localStorage.setItem(STORAGE_ENDPOINT_KEY, url)
-    DOM.modalConfigApi.classList.remove('modal-visible')
-    mostrarToast('Endpoint de APIBox actualizado.', 'success')
-    sincronizarConApi(false)
-  })
-
-  DOM.btnRestablecerEndpoint.addEventListener('click', () => {
-    estado.apiUrl = DEFAULT_API_URL
-    localStorage.removeItem(STORAGE_ENDPOINT_KEY)
-    DOM.inputEndpointUrl.value = DEFAULT_API_URL
-    DOM.modalConfigApi.classList.remove('modal-visible')
-    mostrarToast('Endpoint restablecido al valor por defecto.', 'info')
-    sincronizarConApi(false)
   })
 }
 
@@ -822,8 +519,5 @@ function inicializarEventos() {
 // --------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   inicializarEventos()
-  // 1. Carga inmediata de personajes para que NUNCA se quede en blanco en Netlify
-  inicializarDatosLocales()
-  // 2. Intento de sincronización en segundo plano con APIBox
-  sincronizarConApi(true)
+  cargarPersonajes()
 })
