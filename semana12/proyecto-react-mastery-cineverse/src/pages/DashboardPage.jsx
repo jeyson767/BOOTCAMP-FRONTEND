@@ -41,101 +41,101 @@ export default function DashboardPage() {
     .slice(0, 5);
 
   return (
-    <div className="animate-fade-in space-y-10">
+    <div className="animate-fade-in space-y-6 sm:space-y-10">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-black text-white font-['Outfit'] flex items-center gap-3">
-            <BarChart2 className="w-8 h-8 text-red-500" />
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white font-['Outfit'] flex items-center gap-2.5 sm:gap-3">
+            <BarChart2 className="w-6 h-6 sm:w-8 sm:h-8 text-red-500" />
             Dashboard & Métricas
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-400 mt-0.5 sm:mt-1">
             Análisis estadístico en tiempo real del catálogo sincronizado
           </p>
         </div>
 
         <Link
           to="/create"
-          className="self-start sm:self-center px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-semibold text-sm shadow-lg shadow-red-600/30 transition-all"
+          className="self-start sm:self-center px-4 py-2 sm:py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-red-600/30 transition-all active:scale-95"
         >
           + Agregar Nuevo Título
         </Link>
       </div>
 
       {/* KPI Stat Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         
         {/* Total Titles */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 flex items-center justify-between">
+        <div className="glass-card rounded-2xl p-4 sm:p-6 border border-slate-800 flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Títulos</span>
-            <h3 className="text-3xl font-black text-white font-['Outfit'] mt-1">{movies.length}</h3>
-            <span className="text-xs text-emerald-400 font-medium">Sincronizados en LocalStorage</span>
+            <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Total Títulos</span>
+            <h3 className="text-2xl sm:text-3xl font-black text-white font-['Outfit'] mt-1">{movies.length}</h3>
+            <span className="text-[11px] sm:text-xs text-emerald-400 font-medium">Sincronizados en LocalStorage</span>
           </div>
-          <div className="p-3.5 rounded-2xl bg-red-600/15 text-red-500 border border-red-500/20">
-            <Film className="w-6 h-6" />
+          <div className="p-3 sm:p-3.5 rounded-2xl bg-red-600/15 text-red-500 border border-red-500/20">
+            <Film className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
 
         {/* Películas vs Series */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 flex items-center justify-between">
+        <div className="glass-card rounded-2xl p-4 sm:p-6 border border-slate-800 flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Películas / Series</span>
-            <h3 className="text-3xl font-black text-white font-['Outfit'] mt-1">
+            <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Películas / Series</span>
+            <h3 className="text-2xl sm:text-3xl font-black text-white font-['Outfit'] mt-1">
               {totalMovies} <span className="text-slate-500 text-lg">/</span> {totalSeries}
             </h3>
-            <span className="text-xs text-slate-400">
+            <span className="text-[11px] sm:text-xs text-slate-400">
               {((totalMovies / (movies.length || 1)) * 100).toFixed(0)}% Películas • {((totalSeries / (movies.length || 1)) * 100).toFixed(0)}% Series
             </span>
           </div>
-          <div className="p-3.5 rounded-2xl bg-purple-600/15 text-purple-400 border border-purple-500/20">
-            <Tv className="w-6 h-6" />
+          <div className="p-3 sm:p-3.5 rounded-2xl bg-purple-600/15 text-purple-400 border border-purple-500/20">
+            <Tv className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
 
         {/* Promedio Calificación */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 flex items-center justify-between">
+        <div className="glass-card rounded-2xl p-4 sm:p-6 border border-slate-800 flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Promedio IMDb</span>
-            <h3 className="text-3xl font-black text-amber-400 font-['Outfit'] mt-1 flex items-center gap-1.5">
+            <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Promedio IMDb</span>
+            <h3 className="text-2xl sm:text-3xl font-black text-amber-400 font-['Outfit'] mt-1 flex items-center gap-1.5">
               ⭐ {avgRating} <span className="text-xs text-slate-400 font-normal">/ 10</span>
             </h3>
-            <span className="text-xs text-amber-400/80 font-medium">Calidad de catálogo alta</span>
+            <span className="text-[11px] sm:text-xs text-amber-400/80 font-medium">Calidad de catálogo alta</span>
           </div>
-          <div className="p-3.5 rounded-2xl bg-amber-600/15 text-amber-400 border border-amber-500/20">
-            <Star className="w-6 h-6 fill-amber-400" />
+          <div className="p-3 sm:p-3.5 rounded-2xl bg-amber-600/15 text-amber-400 border border-amber-500/20">
+            <Star className="w-5 h-5 sm:w-6 sm:h-6 fill-amber-400" />
           </div>
         </div>
 
         {/* Tiempo Total de Reproducción */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 flex items-center justify-between">
+        <div className="glass-card rounded-2xl p-4 sm:p-6 border border-slate-800 flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Tiempo de Contenido</span>
-            <h3 className="text-3xl font-black text-white font-['Outfit'] mt-1">{totalHours} hrs</h3>
-            <span className="text-xs text-sky-400 font-medium">{totalMinutes.toLocaleString()} minutos acumulados</span>
+            <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Tiempo de Contenido</span>
+            <h3 className="text-2xl sm:text-3xl font-black text-white font-['Outfit'] mt-1">{totalHours} hrs</h3>
+            <span className="text-[11px] sm:text-xs text-sky-400 font-medium">{totalMinutes.toLocaleString()} minutos</span>
           </div>
-          <div className="p-3.5 rounded-2xl bg-sky-600/15 text-sky-400 border border-sky-500/20">
-            <Clock className="w-6 h-6" />
+          <div className="p-3 sm:p-3.5 rounded-2xl bg-sky-600/15 text-sky-400 border border-sky-500/20">
+            <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
       </div>
 
       {/* Main Charts & Rankings Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
         
         {/* Genre Distribution Bars (7 cols) */}
-        <div className="lg:col-span-7 glass-card rounded-3xl p-6 sm:p-8 border border-slate-800">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2.5">
-              <Layers className="w-5 h-5 text-red-500" />
-              <h3 className="text-lg font-bold text-white font-['Outfit']">
+        <div className="lg:col-span-7 glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-slate-800">
+          <div className="flex items-center justify-between mb-5 sm:mb-6">
+            <div className="flex items-center gap-2 sm:gap-2.5">
+              <Layers className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
+              <h3 className="text-base sm:text-lg font-bold text-white font-['Outfit']">
                 Distribución por Géneros
               </h3>
             </div>
-            <span className="text-xs text-slate-400">{genreCounts.length} géneros representados</span>
+            <span className="text-[11px] sm:text-xs text-slate-400">{genreCounts.length} géneros</span>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3.5 sm:space-y-4">
             {genreCounts.map(({ genre, count }) => {
               const percentage = Math.round((count / (movies.length || 1)) * 100);
               return (
@@ -146,7 +146,7 @@ export default function DashboardPage() {
                       {count} {count === 1 ? 'título' : 'títulos'} ({percentage}%)
                     </span>
                   </div>
-                  <div className="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                  <div className="w-full h-2 sm:h-2.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
                     <div
                       className="h-full bg-gradient-to-r from-red-600 to-rose-500 rounded-full transition-all duration-700"
                       style={{ width: `${percentage}%` }}
@@ -159,22 +159,22 @@ export default function DashboardPage() {
         </div>
 
         {/* Top Rated Leaderboard (5 cols) */}
-        <div className="lg:col-span-5 glass-card rounded-3xl p-6 sm:p-8 border border-slate-800">
-          <div className="flex items-center gap-2.5 mb-6">
-            <Award className="w-5 h-5 text-amber-400" />
-            <h3 className="text-lg font-bold text-white font-['Outfit']">
-              Top 5 Títulos Mejor Calificados
+        <div className="lg:col-span-5 glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-slate-800">
+          <div className="flex items-center gap-2 sm:gap-2.5 mb-5 sm:mb-6">
+            <Award className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
+            <h3 className="text-base sm:text-lg font-bold text-white font-['Outfit']">
+              Top 5 Mejor Calificados
             </h3>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2.5 sm:space-y-3">
             {topRated.map((m, index) => (
               <Link
                 key={m.id}
                 to={`/movie/${m.id}`}
-                className="flex items-center gap-3 p-2.5 rounded-2xl hover:bg-slate-800/60 transition-colors border border-transparent hover:border-slate-700/60 group"
+                className="flex items-center gap-2.5 sm:gap-3 p-2 sm:p-2.5 rounded-2xl hover:bg-slate-800/60 transition-colors border border-transparent hover:border-slate-700/60 group"
               >
-                <span className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-black shrink-0 ${
+                <span className={`w-6 h-6 sm:w-7 sm:h-7 rounded-xl flex items-center justify-center text-xs font-black shrink-0 ${
                   index === 0 ? 'bg-amber-500 text-slate-950 font-bold' :
                   index === 1 ? 'bg-slate-300 text-slate-950 font-bold' :
                   index === 2 ? 'bg-amber-700 text-white font-bold' :
@@ -186,19 +186,19 @@ export default function DashboardPage() {
                 <img
                   src={m.poster}
                   alt={m.title}
-                  className="w-10 h-14 object-cover rounded-lg shrink-0 border border-slate-800"
+                  className="w-9 h-12 sm:w-10 sm:h-14 object-cover rounded-lg shrink-0 border border-slate-800"
                 />
 
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-bold text-sm text-white truncate group-hover:text-red-400 transition-colors">
+                  <h4 className="font-bold text-xs sm:text-sm text-white truncate group-hover:text-red-400 transition-colors">
                     {m.title}
                   </h4>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-[11px] sm:text-xs text-slate-400">
                     {m.year} • {m.type === 'serie' ? 'Serie' : 'Película'}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-1 text-xs font-bold text-amber-400 bg-amber-400/10 px-2 py-1 rounded-lg shrink-0">
+                <div className="flex items-center gap-1 text-[11px] sm:text-xs font-bold text-amber-400 bg-amber-400/10 px-2 py-0.5 sm:py-1 rounded-lg shrink-0">
                   <Star className="w-3 h-3 fill-amber-400" />
                   {m.rating}
                 </div>
