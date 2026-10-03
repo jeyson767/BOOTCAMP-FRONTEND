@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { movieApi } from '../services/api';
+import { showToast } from '../utils/alerts';
 
 const FAVORITES_KEY = 'cineverse_favorites_v1';
 const WATCHLIST_KEY = 'cineverse_watchlist_v1';
@@ -51,22 +52,7 @@ export const useMovieStore = create((set, get) => ({
     movie: null
   },
 
-  // Notification Toast
-  toast: null, // { message, type: 'success' | 'error' | 'info', id }
-
   // Actions
-  showToast: (message, type = 'success') => {
-    const id = Date.now();
-    set({ toast: { message, type, id } });
-    setTimeout(() => {
-      if (get().toast?.id === id) {
-        set({ toast: null });
-      }
-    }, 4000);
-  },
-
-  clearToast: () => set({ toast: null }),
-
   fetchMovies: async () => {
     set({ isLoading: true, error: null });
     try {
@@ -74,7 +60,7 @@ export const useMovieStore = create((set, get) => ({
       set({ movies: data, isLoading: false });
     } catch (err) {
       set({ error: err.message || 'Error al cargar las películas', isLoading: false });
-      get().showToast('Error al conectar con la base de datos', 'error');
+      showToast('Error al conectar con la base de datos', 'error');
     }
   },
 
@@ -98,11 +84,11 @@ export const useMovieStore = create((set, get) => ({
         movies: [created, ...state.movies],
         isMutating: false
       }));
-      get().showToast(`¡"${created.title}" se ha añadido con éxito!`, 'success');
+      showToast(`¡"${created.title}" añadido con éxito!`, 'success');
       return created;
     } catch (err) {
       set({ isMutating: false, error: err.message });
-      get().showToast(err.message || 'Error al crear el título', 'error');
+      showToast(err.message || 'Error al crear el título', 'error');
       throw err;
     }
   },
@@ -116,11 +102,11 @@ export const useMovieStore = create((set, get) => ({
         currentMovie: state.currentMovie?.id === id ? updated : state.currentMovie,
         isMutating: false
       }));
-      get().showToast(`¡"${updated.title}" ha sido actualizado!`, 'success');
+      showToast(`¡"${updated.title}" ha sido actualizado!`, 'success');
       return updated;
     } catch (err) {
       set({ isMutating: false, error: err.message });
-      get().showToast(err.message || 'Error al actualizar', 'error');
+      showToast(err.message || 'Error al actualizar', 'error');
       throw err;
     }
   },
@@ -139,10 +125,10 @@ export const useMovieStore = create((set, get) => ({
       }));
       saveLocalList(FAVORITES_KEY, get().favorites);
       saveLocalList(WATCHLIST_KEY, get().watchlist);
-      get().showToast(`"${movieToDelete?.title || 'Título'}" eliminado correctamente`, 'info');
+      showToast(`"${movieToDelete?.title || 'Título'}" eliminado correctamente`, 'info');
     } catch (err) {
       set({ isMutating: false, error: err.message });
-      get().showToast(err.message || 'Error al eliminar', 'error');
+      showToast(err.message || 'Error al eliminar', 'error');
       throw err;
     }
   },
@@ -152,9 +138,10 @@ export const useMovieStore = create((set, get) => ({
     try {
       const resetList = await movieApi.resetDatabase();
       set({ movies: resetList, isLoading: false });
-      get().showToast('Base de datos restaurada a valores por defecto', 'info');
+      showToast('Catálogo restaurado a valores por defecto', 'info');
     } catch (err) {
       set({ isLoading: false, error: err.message });
+      showToast('Error al restaurar catálogo', 'error');
     }
   },
 
@@ -164,7 +151,7 @@ export const useMovieStore = create((set, get) => ({
     const updated = exists ? current.filter((item) => item !== id) : [...current, id];
     set({ favorites: updated });
     saveLocalList(FAVORITES_KEY, updated);
-    get().showToast(exists ? 'Eliminado de Favoritos' : 'Añadido a Favoritos ❤️', 'info');
+    showToast(exists ? 'Quitado de favoritos' : 'Añadido a favoritos ❤️', 'success');
   },
 
   toggleWatchlist: (id) => {
@@ -173,7 +160,7 @@ export const useMovieStore = create((set, get) => ({
     const updated = exists ? current.filter((item) => item !== id) : [...current, id];
     set({ watchlist: updated });
     saveLocalList(WATCHLIST_KEY, updated);
-    get().showToast(exists ? 'Quitado de Ver Más Tarde' : 'Guardado en Ver Más Tarde 📌', 'info');
+    showToast(exists ? 'Quitado de Ver Más Tarde' : 'Guardado en Ver Más Tarde 📌', 'info');
   },
 
   setSearchQuery: (query) => set({ searchQuery: query }),

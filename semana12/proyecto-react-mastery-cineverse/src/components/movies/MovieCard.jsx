@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { Play, Star, Heart, Bookmark, Edit3, Trash2, Clock, Calendar } from 'lucide-react';
 import { useMovieStore } from '../../store/useMovieStore';
 import { formatDuration, getRatingBadgeClass } from '../../utils/formatters';
+import { confirmDeleteAlert } from '../../utils/alerts';
 
 export default function MovieCard({ movie, viewMode = 'grid' }) {
   const openTrailer = useMovieStore((state) => state.openTrailer);
-  const openDeleteModal = useMovieStore((state) => state.openDeleteModal);
+  const deleteMovie = useMovieStore((state) => state.deleteMovie);
   const toggleFavorite = useMovieStore((state) => state.toggleFavorite);
   const toggleWatchlist = useMovieStore((state) => state.toggleWatchlist);
   const favorites = useMovieStore((state) => state.favorites);
@@ -14,6 +15,13 @@ export default function MovieCard({ movie, viewMode = 'grid' }) {
 
   const isFavorite = favorites.includes(movie.id);
   const isWatchlist = watchlist.includes(movie.id);
+
+  const handleDelete = async () => {
+    const confirmed = await confirmDeleteAlert(movie.title, movie.poster);
+    if (confirmed) {
+      await deleteMovie(movie.id);
+    }
+  };
 
   if (viewMode === 'compact') {
     return (
@@ -132,7 +140,7 @@ export default function MovieCard({ movie, viewMode = 'grid' }) {
             </Link>
 
             <button
-              onClick={() => openDeleteModal(movie)}
+              onClick={handleDelete}
               className="p-2 rounded-xl bg-slate-800/80 hover:bg-red-600/20 text-slate-400 hover:text-red-400 border border-slate-700 hover:border-red-500/30 transition-colors"
               title="Eliminar título"
             >
@@ -264,7 +272,7 @@ export default function MovieCard({ movie, viewMode = 'grid' }) {
               <Edit3 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </Link>
             <button
-              onClick={() => openDeleteModal(movie)}
+              onClick={handleDelete}
               className="p-1.5 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-500/10 transition-colors"
               title="Eliminar"
             >

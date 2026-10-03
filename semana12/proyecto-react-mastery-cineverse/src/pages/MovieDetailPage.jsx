@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useMovieStore } from '../store/useMovieStore';
 import { formatDuration, getRatingBadgeClass, getStatusBadgeClass } from '../utils/formatters';
+import { confirmDeleteAlert } from '../utils/alerts';
 import MovieCard from '../components/movies/MovieCard';
 
 export default function MovieDetailPage() {
@@ -15,7 +16,7 @@ export default function MovieDetailPage() {
   const movies = useMovieStore((state) => state.movies);
   const fetchMovies = useMovieStore((state) => state.fetchMovies);
   const openTrailer = useMovieStore((state) => state.openTrailer);
-  const openDeleteModal = useMovieStore((state) => state.openDeleteModal);
+  const deleteMovie = useMovieStore((state) => state.deleteMovie);
   const toggleFavorite = useMovieStore((state) => state.toggleFavorite);
   const toggleWatchlist = useMovieStore((state) => state.toggleWatchlist);
   const favorites = useMovieStore((state) => state.favorites);
@@ -41,6 +42,15 @@ export default function MovieDetailPage() {
       setMovie(found || null);
     }
   }, [id, movies]);
+
+  const handleDelete = async () => {
+    if (!movie) return;
+    const confirmed = await confirmDeleteAlert(movie.title, movie.poster);
+    if (confirmed) {
+      await deleteMovie(movie.id);
+      navigate('/');
+    }
+  };
 
   if (loading) {
     return (
@@ -254,7 +264,7 @@ export default function MovieDetailPage() {
                 </Link>
 
                 <button
-                  onClick={() => openDeleteModal(movie)}
+                  onClick={handleDelete}
                   className="flex-1 sm:flex-initial text-center px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-red-600/10 hover:bg-red-600/20 text-red-400 border border-red-500/30 text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 transition-colors"
                 >
                   <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />

@@ -1,13 +1,15 @@
 import React from 'react';
 import { Film, Github, Heart, Code2, RotateCcw } from 'lucide-react';
 import { useMovieStore } from '../../store/useMovieStore';
+import { confirmResetAlert } from '../../utils/alerts';
 
 export default function Footer() {
   const resetDatabase = useMovieStore((state) => state.resetDatabase);
 
-  const handleReset = () => {
-    if (window.confirm('¿Deseas restaurar la base de datos a sus películas originales?')) {
-      resetDatabase();
+  const handleReset = async () => {
+    const confirmed = await confirmResetAlert();
+    if (confirmed) {
+      await resetDatabase();
     }
   };
 
@@ -45,6 +47,9 @@ export default function Footer() {
             </span>
             <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-800">
               🎨 TailwindCSS
+            </span>
+            <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-800">
+              🍬 SweetAlert2
             </span>
           </div>
 
