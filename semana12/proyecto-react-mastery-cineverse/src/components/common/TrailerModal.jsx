@@ -26,33 +26,33 @@ export default function TrailerModal() {
   const embedId = extractYoutubeId(youtubeId);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/85 backdrop-blur-md animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
       <div 
-        className="relative w-full max-w-4xl bg-slate-900 border border-slate-700/60 rounded-2xl overflow-hidden shadow-2xl shadow-red-950/40 animate-slide-up"
+        className="relative w-full max-w-4xl bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-2xl animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-950/80">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/80">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-red-600/20 text-red-500">
+            <div className="p-2 rounded-xl bg-indigo-50 text-indigo-600">
               <Film className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-white text-base sm:text-lg line-clamp-1">{title}</h3>
-              <span className="text-xs text-slate-400">Trailer Oficial en YouTube</span>
+              <h3 className="font-bold text-slate-900 text-sm sm:text-base line-clamp-1">{title}</h3>
+              <span className="text-xs text-slate-400">Trailer Oficial</span>
             </div>
           </div>
           <button
             onClick={closeTrailer}
-            className="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition-colors"
+            className="p-2 text-slate-400 hover:text-slate-700 rounded-xl hover:bg-slate-100 transition-colors"
             title="Cerrar (Esc)"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Video Player */}
-        <div className="relative aspect-video w-full bg-black">
+        <div className="relative aspect-video w-full bg-slate-900">
           {embedId ? (
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${embedId}?autoplay=1&rel=0&modestbranding=1`}
@@ -62,9 +62,9 @@ export default function TrailerModal() {
               allowFullScreen
             />
           ) : (
-            <div className="flex flex-col items-center justify-center h-full text-slate-400 p-8 text-center">
-              <p className="text-lg font-medium text-slate-300">No se proporcionó un enlace de YouTube válido.</p>
-              <p className="text-sm mt-1 text-slate-500">Puedes editar este título y agregar una URL de trailer de YouTube.</p>
+            <div className="flex flex-col items-center justify-center h-full text-slate-400 p-8 text-center bg-slate-50">
+              <p className="text-sm font-medium text-slate-600">No se proporcionó un enlace de YouTube válido.</p>
+              <p className="text-xs mt-1 text-slate-400">Puedes editar este título y agregar una URL de trailer.</p>
             </div>
           )}
         </div>

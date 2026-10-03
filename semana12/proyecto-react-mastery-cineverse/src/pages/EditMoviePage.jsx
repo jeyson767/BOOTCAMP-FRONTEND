@@ -45,23 +45,23 @@ export default function EditMoviePage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-        <Loader2 className="w-10 h-10 text-red-500 animate-spin" />
-        <p className="text-slate-400 text-sm">Cargando datos para edición...</p>
+      <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-3">
+        <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
+        <p className="text-slate-400 text-sm">Cargando datos...</p>
       </div>
     );
   }
 
   if (!movie) {
     return (
-      <div className="glass-card rounded-3xl p-12 text-center max-w-lg mx-auto border border-slate-800 my-12">
-        <h2 className="text-2xl font-black text-white mb-2">No se encontró el título</h2>
-        <p className="text-slate-400 text-sm mb-6">
+      <div className="bg-white rounded-3xl p-10 text-center max-w-md mx-auto border border-slate-200/80 shadow-sm my-10">
+        <h2 className="text-xl font-bold text-slate-900 mb-2">No se encontró el título</h2>
+        <p className="text-slate-500 text-sm mb-6">
           No se puede editar un registro que no existe.
         </p>
         <button
           onClick={() => navigate('/')}
-          className="px-6 py-3 rounded-xl bg-red-600 text-white font-semibold text-sm shadow-lg"
+          className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-sm"
         >
           Volver al Catálogo
         </button>

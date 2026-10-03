@@ -78,15 +78,10 @@ export default function HomePage() {
 
       {/* Catalog Section */}
       <div className="mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-black text-white font-['Outfit'] flex items-center gap-2">
-              Explorar Catálogo
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-400">
-              Películas, series y producciones cinematográficas en streaming
-            </p>
-          </div>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 font-['Outfit']">
+            Explorar Catálogo
+          </h2>
         </div>
 
         {/* Filter Toolbar */}
@@ -99,8 +94,8 @@ export default function HomePage() {
           <div
             className={
               viewMode === 'grid'
-                ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'
-                : 'space-y-4'
+                ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6'
+                : 'space-y-3'
             }
           >
             {filteredMovies.map((movie) => (
@@ -109,8 +104,8 @@ export default function HomePage() {
           </div>
         ) : (
           <EmptyState
-            title="No se encontraron coincidencias"
-            description="Ninguna película o serie coincide con tu búsqueda o filtros actuales."
+            title="Sin resultados"
+            description="No encontramos películas o series con esos filtros."
           />
         )}
       </div>

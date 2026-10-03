@@ -9,44 +9,44 @@ export function extractYoutubeId(url) {
 }
 
 /**
- * Formats duration in minutes to hours and minutes (e.g., 140 -> "2h 20min")
+ * Formats duration in minutes to hours and minutes (e.g., 140 -> "2h 20m")
  */
 export function formatDuration(minutes) {
   if (!minutes || isNaN(minutes)) return "N/A";
   const mins = parseInt(minutes, 10);
-  if (mins < 60) return `${mins} min`;
+  if (mins < 60) return `${mins}m`;
   const hrs = Math.floor(mins / 60);
   const remainingMins = mins % 60;
   return remainingMins > 0 ? `${hrs}h ${remainingMins}m` : `${hrs}h`;
 }
 
 /**
- * Returns color classes based on IMDb / rating score
+ * Returns color classes based on IMDb / rating score (Light mode friendly)
  */
 export function getRatingBadgeClass(rating) {
   const num = parseFloat(rating);
-  if (isNaN(num)) return "bg-slate-700 text-slate-300";
-  if (num >= 8.5) return "bg-emerald-500/20 text-emerald-400 border-emerald-500/30";
-  if (num >= 7.0) return "bg-amber-500/20 text-amber-400 border-amber-500/30";
-  if (num >= 5.0) return "bg-orange-500/20 text-orange-400 border-orange-500/30";
-  return "bg-rose-500/20 text-rose-400 border-rose-500/30";
+  if (isNaN(num)) return "bg-slate-100 text-slate-600 border-slate-200";
+  if (num >= 8.5) return "bg-emerald-50 text-emerald-700 border-emerald-200";
+  if (num >= 7.0) return "bg-amber-50 text-amber-700 border-amber-200";
+  if (num >= 5.0) return "bg-orange-50 text-orange-700 border-orange-200";
+  return "bg-rose-50 text-rose-700 border-rose-200";
 }
 
 /**
- * Returns status badge classes
+ * Returns status badge classes (Light mode friendly)
  */
 export function getStatusBadgeClass(status) {
   switch (status?.toLowerCase()) {
     case 'estreno':
-      return 'bg-red-500/20 text-red-400 border-red-500/30';
+      return 'bg-indigo-50 text-indigo-700 border-indigo-200';
     case 'disponible':
-      return 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
+      return 'bg-emerald-50 text-emerald-700 border-emerald-200';
     case 'próximamente':
     case 'proximamente':
-      return 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30';
+      return 'bg-sky-50 text-sky-700 border-sky-200';
     case 'finalizado':
-      return 'bg-slate-500/20 text-slate-400 border-slate-500/30';
+      return 'bg-slate-100 text-slate-600 border-slate-200';
     default:
-      return 'bg-purple-500/20 text-purple-400 border-purple-500/30';
+      return 'bg-violet-50 text-violet-700 border-violet-200';
   }
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Film, Plus, Heart, BarChart3, Menu, X, Sparkles } from 'lucide-react';
+import { Film, Plus, Heart, BarChart3, Menu, X } from 'lucide-react';
 import { useMovieStore } from '../../store/useMovieStore';
 
 export default function Navbar() {
@@ -13,34 +13,28 @@ export default function Navbar() {
   const navLinkClasses = ({ isActive }) =>
     `flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-medium transition-all ${
       isActive
-        ? 'bg-red-600/15 text-red-400 border border-red-500/30'
-        : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+        ? 'bg-indigo-50 text-indigo-600 border border-indigo-100 shadow-xs'
+        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
     }`;
 
   return (
-    <header className="sticky top-0 z-40 w-full glass-panel border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <header className="sticky top-0 z-40 w-full bg-white/90 border-b border-slate-200/80 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between">
         
-        {/* Brand Logo */}
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-red-600 to-rose-500 flex items-center justify-center text-white shadow-lg shadow-red-600/30 group-hover:scale-105 transition-transform">
-            <Film className="w-6 h-6" />
+        {/* Brand Logo (No PRO badge) */}
+        <Link to="/" className="flex items-center gap-2.5 group">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-500 flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
+            <Film className="w-5 h-5" />
           </div>
           <div>
-            <span className="font-extrabold text-2xl tracking-tight text-white font-['Outfit'] flex items-center gap-1.5">
-              CINE<span className="text-red-500">VERSE</span>
-              <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-red-600/20 text-red-400 border border-red-500/30 ml-1">
-                PRO
-              </span>
-            </span>
-            <span className="block text-[11px] text-slate-400 -mt-1 font-medium">
-              React Mastery Project
+            <span className="font-bold text-xl tracking-tight text-slate-900 font-['Outfit']">
+              Cine<span className="text-indigo-600">Verse</span>
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-2">
+        <nav className="hidden md:flex items-center gap-1.5">
           <NavLink to="/" className={navLinkClasses}>
             <Film className="w-4 h-4" />
             <span>Catálogo</span>
@@ -48,14 +42,14 @@ export default function Navbar() {
 
           <NavLink to="/dashboard" className={navLinkClasses}>
             <BarChart3 className="w-4 h-4" />
-            <span>Métricas & Dashboard</span>
+            <span>Métricas</span>
           </NavLink>
 
           <NavLink to="/favorites" className={navLinkClasses}>
             <Heart className="w-4 h-4" />
             <span>Favoritos</span>
             {totalSaved > 0 && (
-              <span className="ml-1 px-1.5 py-0.2 rounded-full text-[11px] font-bold bg-red-500 text-white">
+              <span className="ml-1 px-1.5 py-0.2 rounded-full text-[11px] font-bold bg-indigo-600 text-white">
                 {totalSaved}
               </span>
             )}
@@ -66,10 +60,10 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-3">
           <Link
             to="/create"
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white text-sm font-semibold shadow-lg shadow-red-600/25 transition-all hover:scale-[1.02] active:scale-95 border border-red-400/30"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold shadow-sm transition-all active:scale-95"
           >
             <Plus className="w-4 h-4" />
-            <span>Añadir Título</span>
+            <span>Añadir Película</span>
           </Link>
         </div>
 
@@ -77,15 +71,15 @@ export default function Navbar() {
         <div className="flex md:hidden items-center gap-2">
           <Link
             to="/create"
-            className="p-2.5 rounded-xl bg-red-600 text-white text-sm font-semibold shadow-md shadow-red-600/20"
+            className="p-2 rounded-lg bg-indigo-600 text-white text-sm shadow-xs"
             title="Añadir"
           >
-            <Plus className="w-5 h-5" />
+            <Plus className="w-4 h-4" />
           </Link>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2.5 rounded-xl bg-slate-800/80 text-slate-300 hover:text-white border border-slate-700"
+            className="p-2 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900"
             aria-label="Abrir menú"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -95,7 +89,7 @@ export default function Navbar() {
 
       {/* Mobile dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-800 bg-slate-950 px-4 pt-2 pb-6 space-y-2 animate-slide-up">
+        <div className="md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1 animate-slide-up">
           <NavLink
             to="/"
             onClick={() => setMobileMenuOpen(false)}
@@ -110,7 +104,7 @@ export default function Navbar() {
             className={navLinkClasses}
           >
             <BarChart3 className="w-4 h-4" />
-            <span>Métricas & Dashboard</span>
+            <span>Métricas</span>
           </NavLink>
           <NavLink
             to="/favorites"
@@ -118,7 +112,7 @@ export default function Navbar() {
             className={navLinkClasses}
           >
             <Heart className="w-4 h-4" />
-            <span>Favoritos y Guardados ({totalSaved})</span>
+            <span>Favoritos ({totalSaved})</span>
           </NavLink>
         </div>
       )}

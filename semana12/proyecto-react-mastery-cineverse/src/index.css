@@ -3,72 +3,48 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    color-scheme: dark;
-  }
-  
   body {
-    background-color: #0a0d14;
-    color: #f1f5f9;
+    background-color: #f8fafc;
+    color: #1e293b;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
 
-  /* Custom sleek scrollbar */
+  /* Clean minimal scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
   }
   ::-webkit-scrollbar-track {
-    background: #0d121d;
+    background: #f1f5f9;
   }
   ::-webkit-scrollbar-thumb {
-    background: #232d42;
-    border-radius: 4px;
+    background: #cbd5e1;
+    border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #e50914;
+    background: #94a3b8;
   }
 }
 
 @layer utilities {
-  .glass-panel {
-    background: rgba(18, 24, 36, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+  .light-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
   }
   
-  .glass-card {
-    background: linear-gradient(135deg, rgba(24, 32, 48, 0.6) 0%, rgba(15, 20, 31, 0.8) 100%);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  .light-card-hover {
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
-
-  .glass-card-hover {
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .glass-card-hover:hover {
-    transform: translateY(-4px);
-    border-color: rgba(229, 9, 20, 0.4);
-    box-shadow: 0 20px 35px -10px rgba(229, 9, 20, 0.15);
-  }
-
-  .text-glow-red {
-    text-shadow: 0 0 15px rgba(229, 9, 20, 0.6);
-  }
-
-  .text-glow-gold {
-    text-shadow: 0 0 15px rgba(245, 197, 24, 0.5);
-  }
-
-  .bg-radial-gradient {
-    background: radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.15) 0%, transparent 70%);
+  .light-card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+    border-color: #cbd5e1;
   }
 }
 
-/* Shimmer animation for skeletons */
-@keyframes shimmer {
+/* Shimmer animation for light skeletons */
+@keyframes shimmerLight {
   0% {
     background-position: -200% 0;
   }
@@ -78,7 +54,7 @@
 }
 
 .skeleton-shimmer {
-  background: linear-gradient(90deg, #161f30 25%, #222f47 50%, #161f30 75%);
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
   background-size: 200% 100%;
-  animation: shimmer 1.8s infinite;
+  animation: shimmerLight 1.8s infinite;
 }
